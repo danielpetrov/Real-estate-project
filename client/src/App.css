@@ -1,42 +1,84 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0;
+  background-color: #f5fcfe;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.heading-image {
+  margin: auto;
+  object-fit: cover;
+  display: inline-block;
+  width: 900px;
+  height: 277px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.heading-image-wrapper {
+  margin: auto;
+  width: 900px;
+  height: 277px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.searchForm {
+  width: 750px;
+  height: 180px;
+  margin: auto;
+  margin-top: 50px;
+  border: solid 1px black;
+  overflow: hidden;
+  border-radius: 5px;
+  padding: 30px 15px 5px
+}
+.searchForm.expanded {
+  height: 320px;
+}
+.hidden {
+  display: none;
 }
 
-.card {
-  padding: 2em;
+#city {
+  padding-left: 2px;
+  padding-right: 15px;
+  margin-right: 20px;
+  width: 180px;
+  height: 30px;
 }
 
-.read-the-docs {
-  color: #888;
+#type {
+  padding-left: 2px;
+  padding-right: 15px;
+  margin-right: 20px;
+  width: 180px;
+  height: 30px;
+}
+
+#budget {
+  padding-left: 2px;
+  padding-right: 15px;
+  width: 180px;
+  height: 30px;
+}
+
+#rooms {
+  margin-top: 30px;
+}
+
+.filters-btn {
+  width: 180px;
+  margin-left: 285px;
+}
+
+.best-offers {
+  width: 420px;
+  height: 260px;
+  border: solid 1px rgb(112, 112, 112);
+  border-radius: 7px;
+}
+
+.best-offers-list {
+  margin-top: 70px;
+  display: flex inline;
+  column-gap: 40px;
+  row-gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
