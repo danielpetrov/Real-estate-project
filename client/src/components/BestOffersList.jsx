@@ -1,14 +1,31 @@
-import OfferElement from "./OfferElement";
+import properties from "../properties"
+import OfferElement from "./OfferElement"
 
 export default function BestOffersList() {
-    return(
+
+
+    return (
+        <>
+        <h1 className="offer-list-title">Последни оферти</h1>
         <div className="best-offers-list">
-            <OfferElement />
-            <OfferElement />
-            <OfferElement />
-            <OfferElement />
-            <OfferElement />
-            <OfferElement />
+            {[properties.map((property) => (
+                <OfferElement
+                    propertyType={property.propertyType}
+                    key={property.id}
+                    location={property.location}
+                    district={property.district}
+                    price={property.price}
+                    currency={property.currency}
+                    area={property.area}
+                    yearOfBuilding={property.yearOfBuilding}
+                    description={property.description}
+
+                />
+
+            )
+            )]}
         </div>
+        </>
+
     )
 }

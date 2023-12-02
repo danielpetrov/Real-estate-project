@@ -2,7 +2,7 @@ export default function Header() {
     return (
         <>
             <header>
-                <nav>Hello</nav>
+                <nav className="navigation">Hello</nav>
             </header>
         </>
     )
