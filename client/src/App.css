@@ -1,7 +1,8 @@
-#root {
+body {
   margin: 0 auto;
   padding: 0;
   background-color: #f5fcfe;
+  width: 100%;
 }
 
 .heading-image {

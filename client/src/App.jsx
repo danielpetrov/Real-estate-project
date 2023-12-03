@@ -1,19 +1,21 @@
-import './App.css'
-import BestOffersList from './components/BestOffersList'
+import { Routes, Route } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import HeadingImage from './components/HeadingImage'
-import SearchForm from './components/SearchForm'
-
+import HomePage from './components/HomePage'
+import About from './components/About'
+import './App.css'
 
 
 function App() {
   return (
     <>
       <Header />
-      <HeadingImage />
-      <SearchForm />
-      <BestOffersList />
+      
+
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/about" element={<About />}></Route>
+      </Routes>
       <Footer />
     </>
   )
