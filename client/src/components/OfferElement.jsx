@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export default function OfferElement({
     propertyType,
     location,
@@ -7,9 +9,10 @@ export default function OfferElement({
     area,
     yearOfBuilding,
     description,
+    id,
 }) {
     return (
-        <div className="best-offers">
+        <div className="best-offers" >
             <h1 className="offer-title">{propertyType}</h1>
             <ul className="offer-characteristics">
                 <li className="right-positioned-specs">{location}, {district}</li>
@@ -19,6 +22,7 @@ export default function OfferElement({
                 <li className="short-offer-description-li">
                     <p className="short-offer-description">{description}</p>
                 </li>
+                <Link className="link-to-offer" to={`/properties/${id}`} >Виж повече</Link>
             </ul>
             <img className="offer-heading-img" src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="noimg" />
         </div>

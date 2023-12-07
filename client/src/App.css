@@ -110,6 +110,9 @@ body {
   height: 280px;
   border: solid 1px rgb(112, 112, 112);
   border-radius: 7px;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
 }
 
 .best-offers-list {
@@ -127,6 +130,38 @@ body {
   background-color: #6385a8;
   height: 40px;
   margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  column-gap: 20px;
+  z-index: 10;
+  position: sticky;
+}
+
+.home-link {
+  position: relative;
+  left: 30px;
+  margin-right: 1180px;
+}
+
+/* .signup-link {
+  position: relative;
+  right: 30px;
+}
+
+.add-offer-link {
+  position: relative;
+  right: 30px;
+}
+.login-link {
+  position: relative;
+  right: 30px;
+} */
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  
 }
 
 #search-form-title {
@@ -140,6 +175,7 @@ body {
 
 .short-offer-description {
   width: 380px;
+  height: 50px;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -162,8 +198,9 @@ body {
   width: 180px;
   height: 130px;
   position: relative;
-  top: -170px;
+  top: -190px;
   left: 20px;
+  z-index: 0;
 }
 
 .offer-characteristics {
@@ -185,15 +222,29 @@ body {
 header {
   position: sticky;
   top: 0px;
+  z-index: 10;
 }
 
 .login-div {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  row-gap: 20px;  
+  border: solid 1px;
+  width: 260px;
+  height: 140px;
 }
 
 .signup-form-wrapper {
   display: flex;
+  align-content: center;  
  
 }
 
@@ -209,4 +260,25 @@ header {
   margin: auto;
   column-gap: 60px;
   flex-direction: column;
+}
+
+.link-to-offer {
+  position: relative;
+  top: 40px;
+}
+
+.photo-container {
+  border: solid 1px;
+  width: 500px;
+  height: 300px;
+  margin-left: 30px;
+}
+
+.offer-details {
+  width: 700px;
+  height: 500px;
+}
+
+.offer-wrapper {
+  display: flex;
 }
