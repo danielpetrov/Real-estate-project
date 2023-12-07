@@ -14,6 +14,8 @@ import SignUp from './components/SignUp'
 import OfferPage from './components/OfferPage'
 import Path from './paths'
 import Logout from './components/Logout'
+import MyOffers from './components/MyOffers'
+import CreateOffer from './components/CreateOffer'
 
 
 function App() {
@@ -31,17 +33,17 @@ function App() {
   // _id: '35c62d76-8152-4626-8712-eeb96381bea8', 
   // accessToken: '2c12cc199c561e4e3f8fc1bb3b42e4ea01d404babe7a5ef95c4d878cf6ff0e23'
 
-  const loginSubmitHandler = async (values) => {
-    const result = await login(values)
+  const loginSubmitHandler = async (values, token) => {
+    const result = await login(values, token)
     console.log(result)
     setAuth(result)
     window.localStorage.setItem('auth', JSON.stringify(result))
     navigate(Path.Home)
   }
 
-  const registerSubmitHandler = async (values) => {
+  const registerSubmitHandler = async (values,token) => {
     console.log(values)
-    const result = await signup(values)
+    const result = await signup(values, token)
     console.log(values)
     setAuth(result)
     navigate(Path.Home)
@@ -75,6 +77,8 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/properties/:offerId" element={<OfferPage />}></Route>
           <Route path={Path.Logout} element={<Logout />}></Route>
+          <Route path={Path.MyOffers} element={<MyOffers/>}></Route>
+          <Route path={Path.CreateOffer} element={<CreateOffer/>}></Route>
         </Routes>
 
         <Footer />

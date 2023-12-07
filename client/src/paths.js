@@ -1,6 +1,8 @@
 const Path = {
     Home: '/',
-    Logout:'/logout'
+    Logout:'/logout',
+    MyOffers: '/myoffers',
+    CreateOffer: '/createoffer'
 }
 
 export default Path

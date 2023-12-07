@@ -4,7 +4,7 @@ export async function login(loginData) {
     const response = await fetch(`${baseUrl}/users/login`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(loginData)
     })
@@ -13,11 +13,12 @@ export async function login(loginData) {
     return loggedData
 }
 
-export async function signup(signupData) {
+export async function signup(signupData, token) {
     const response = await fetch(`${baseUrl}/users/register`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json; charset=UTF-8",
+            "X-Authorization": `${token}`,
         },
         body: JSON.stringify(signupData)
     })

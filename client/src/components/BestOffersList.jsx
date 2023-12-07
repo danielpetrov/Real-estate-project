@@ -13,7 +13,12 @@ export default function BestOffersList() {
     }, [])
 
     return (
-        <>
+        <div 
+         style={{
+             width: 'calc(100vw - 20px)',
+             overflow: 'hidden'
+         }}
+        >
             <h1 className="offer-list-title">Последни оферти</h1>
             <div className="best-offers-list">
                 {[properties.map((property) => (
@@ -32,11 +37,10 @@ export default function BestOffersList() {
 
                     />
 
-
                 )
                 )]}
             </div>
-        </>
+        </div>
 
     )
 }
