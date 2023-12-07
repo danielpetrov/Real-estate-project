@@ -7,7 +7,7 @@ export default function Header() {
         isAutenticated,
         email
     } = useContext(AuthContext)
-
+console.log(isAutenticated, 'isAuthenticated')
     return (
         <>
             <header>
@@ -16,6 +16,7 @@ export default function Header() {
                     {isAutenticated && (
                         <div id="user-navigation">
                             <Link className="add-offer-link nav-link" to='/add-offer'>Добави обява</Link>
+                            <Link className="logout nav-link" to='/logout'>Изход</Link>
                         </div>
                     )}
                     
