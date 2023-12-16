@@ -1,42 +1,32 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { getMyOffers } from "../services/collections"
-import OfferElement from "./OfferElement"
+import OfferCard from "./OfferCard"
 import { Link } from "react-router-dom"
+import AuthContext from "../contexts/authContext"
 
 export default function MyOffers() {
-    const [myProperties, setMyProperties] = useState([])
+    const {isAuthenticated, token} = useContext(AuthContext)
+    const [myProperties, setMyProperties] = useState()
+    console.log(myProperties)
 
     useEffect(() => {
-        getMyOffers()
+        if (isAuthenticated && !myProperties) {
+            getMyOffers(token)
             .then(result => setMyProperties(result))
-    }, [])
+        }
+    }, [isAuthenticated, myProperties])
 
-  
-
+    if (!isAuthenticated) {
+        return <div> Login please </div>
+    }
     return(
-        <div>
+        <div className="my-offers-list-wrapper">
             <h1>Моите обяви</h1>
             <button><Link to='/createoffer'>Добави обява</Link></button>
             <div className="my-offers-list">
-                {myProperties && (
-                    [myProperties.map((property) => (
-
-                        <OfferElement
-                            propertyType={property.propertyType}
-                            key={property.id}
-                            location={property.location}
-                            district={property.district}
-                            price={property.price}
-                            currency={property.currency}
-                            area={property.area}
-                            yearOfBuilding={property.yearOfBuilding}
-                            description={property.description}
-                            id={property.id}
-    
-                        />
-                    )
-                    )]
-                )} 
+                {myProperties && [myProperties.map((property) => (
+                    <OfferCard key={property._id} property={property} editEnabled={true} />
+                ))]} 
             </div>
         </div>
     )

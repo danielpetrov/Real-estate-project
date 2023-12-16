@@ -35,15 +35,16 @@ export async function logout(token) {
         headers: {
             "Content-type": "application/json; charset=UTF-8",
             "X-Authorization": `${token}`,
-        },
+        }
     })
 
     if (response.status === 204) {
         return {}
     }
 
-    const result = response.json()
+    const result = await response.json()
     if(!response.ok) {
         throw result
     }
+    return result
 }

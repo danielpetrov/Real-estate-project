@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import AuthContext from './contexts/authContext'
-import { login, signup } from './services/authService'
+import { login, logout, signup } from './services/authService'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -16,12 +16,27 @@ import Path from './paths'
 import Logout from './components/Logout'
 import MyOffers from './components/MyOffers'
 import CreateOffer from './components/CreateOffer'
+import { addNewOffer, editMyOffer } from './services/collections'
+import MyOfferPage from './components/MyOfferPage'
+import EditOfferForm from './components/EditOfferForm'
+//import { CorsOptions } from 'cors'
 
+// const cors = require("cors");
+// App.use(cors());
+
+// var corsOptions = {
+//   origin: "http://localhost:3030"
+// };
+
+//App.use(cors(corsOptions));
 
 function App() {
+
+
   const [auth, setAuth] = useState({})
+  console.log(auth.accessToken)
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     const persistedAuth = JSON.parse(window.localStorage.getItem('auth'))
 
@@ -33,40 +48,58 @@ function App() {
   // _id: '35c62d76-8152-4626-8712-eeb96381bea8', 
   // accessToken: '2c12cc199c561e4e3f8fc1bb3b42e4ea01d404babe7a5ef95c4d878cf6ff0e23'
 
-  const loginSubmitHandler = async (values, token) => {
-    const result = await login(values, token)
+
+  const loginSubmitHandler = async (values) => {
+    const result = await login(values)
     console.log(result)
     setAuth(result)
     window.localStorage.setItem('auth', JSON.stringify(result))
     navigate(Path.Home)
   }
 
-  const registerSubmitHandler = async (values,token) => {
-    console.log(values)
+  const registerSubmitHandler = async (values) => {
+    const token = auth.accessToken
     const result = await signup(values, token)
-    console.log(values)
     setAuth(result)
     navigate(Path.Home)
   }
 
   const logoutHandler = () => {
-    setAuth({})
-    localStorage.removeItem('auth') // call this if 403 on any request
-    navigate(Path.Home)
+    const token = auth.accessToken
+    logout(token)
+      .then(setAuth({}))
+      .then(localStorage.removeItem('auth')) // call this if 403 on any request
+      .then(navigate(Path.Home))
+  }
+
+  const addNewOfferHandler = async (values) => {
+    console.log(auth)
+    const token = auth.accessToken
+    const result = await addNewOffer(values, token)
+    console.log(result)
+
+  }
+  const editOfferHandler = async (_id, values) => {
+    const token = auth.accessToken
+    const result = await editMyOffer(_id, token, values)
+      .then(navigate(Path.MyOffers))
+    console.log(result)
   }
 
   console.log('auth', auth)
-  const values = {
+  const authContextValues = {
     loginSubmitHandler,
     registerSubmitHandler,
     logoutHandler,
+    addNewOfferHandler,
+    editOfferHandler,
     email: auth.email,
-    isAutenticated: !!auth.accessToken,
+    isAuthenticated: !!auth.accessToken,
     token: auth.accessToken
   }
 
   return (
-    <AuthContext.Provider value={values}>
+    <AuthContext.Provider value={authContextValues}>
       <>
         <Header />
 
@@ -77,8 +110,11 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/properties/:offerId" element={<OfferPage />}></Route>
           <Route path={Path.Logout} element={<Logout />}></Route>
-          <Route path={Path.MyOffers} element={<MyOffers/>}></Route>
-          <Route path={Path.CreateOffer} element={<CreateOffer/>}></Route>
+          <Route path={Path.MyOffers} element={<MyOffers />}></Route>
+          <Route path={Path.CreateOffer} element={<CreateOffer />}></Route>
+          <Route path="/data/properties/:_id" element={<MyOfferPage />}></Route>
+          <Route path="/edit/:_id" element={<EditOfferForm />}></Route>
+
         </Routes>
 
         <Footer />

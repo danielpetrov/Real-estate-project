@@ -3,6 +3,8 @@ body {
   padding: 0;
   background-color: #f5fcfe;
   width: 100%;
+  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Dosis', sans-serif;
 }
 
 .heading-image {
@@ -292,10 +294,34 @@ header {
   width: 500px;
   height: 500px;
   border: solid 1px;
-  display: flex inline;
+  display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   row-gap: 10px;
   align-content: center;
   justify-content: center;
+  align-items: center;
+}
+
+.my-offers-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.my-offers-list-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.btn-edit-offer {
+  position: relative;
+  top: 40px;
+  left: 10px;
 }

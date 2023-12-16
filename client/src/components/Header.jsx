@@ -4,16 +4,16 @@ import { useContext } from 'react'
 
 export default function Header() {
     const {
-        isAutenticated,
+        isAuthenticated,
         email
     } = useContext(AuthContext)
-console.log(isAutenticated, 'isAuthenticated')
+console.log(isAuthenticated, 'isAuthenticated')
     return (
         <>
             <header>
                 <nav className="navigation">
                     <Link className="home-link nav-link" to='/'>Home</Link>
-                    {isAutenticated && (
+                    {isAuthenticated && (
                         <div id="user-navigation">
                             <Link className='my-offers nav-link' to='/myoffers'>Моите обяви</Link>
                             {/* <Link className="add-offer-link nav-link" to='/add-offer'>Добави обява</Link> */}
@@ -22,7 +22,7 @@ console.log(isAutenticated, 'isAuthenticated')
                     )}
                     
                     {/* <Link to='/about'>About</Link> */}
-                    {!isAutenticated && (
+                    {!isAuthenticated && (
                         <div id="guest-navigation">
                             <Link className="login-link nav-link" to='/login'>Вход</Link>
                             <Link className="signup-link nav-link" to='/signup'>Регистрация</Link>

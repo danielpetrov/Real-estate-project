@@ -1,8 +1,9 @@
 import useForm from "../hooks/useForm"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import AuthContext from "../contexts/authContext"
-
-const CreateOfferFormKeys = {
+import { useParams } from "react-router-dom"
+import { getMyOffer } from '../services/collections'
+const EditOfferFormKeys = {
     Type: 'type',
     Location: 'location',
     District: 'district',
@@ -15,25 +16,36 @@ const CreateOfferFormKeys = {
     Description: 'description',
 }
 
-export default function CreateOffer() {
-    const {addNewOfferHandler} = useContext(AuthContext)
-    const { values, onChange, onSubmit } = useForm(addNewOfferHandler, {
-        [CreateOfferFormKeys.Type]: '',
-        [CreateOfferFormKeys.Location]: '',
-        [CreateOfferFormKeys.District]: '',
-        [CreateOfferFormKeys.Rooms]: '',
-        [CreateOfferFormKeys.Floor]: '',
-        [CreateOfferFormKeys.Price]: '',
-        [CreateOfferFormKeys.Currency]: '',
-        [CreateOfferFormKeys.Area]: '',
-        [CreateOfferFormKeys.YearOfBuilding]: '',
-        [CreateOfferFormKeys.Description]: '',
-    })
+export default function EditOfferForm() {
+    const {isAuthenticated, editOfferHandler, token} = useContext(AuthContext)
+    const [values, setValues] = useState()
+    const {_id} = useParams()
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            getMyOffer(_id, token)
+                .then(result => setValues(result))
+        }
+    }, [isAuthenticated, setValues, token])
+    
+    const onChange = (e) => {
+        setValues(state => ({
+            ...state,
+            [e.target.name]: e.target.value,
+        }))
+    }
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+        editOfferHandler(_id, values)
+    }
+    
+    if (!values) {
+        return
+    }
     return (
         <>
-            <h1>NewOffer</h1>
+            <h1>Edit Offer</h1>
             <div className="add-new-offer-wrapper">
 
                 <form className="add-new-offer-form" onSubmit={onSubmit} action="">
@@ -44,7 +56,7 @@ export default function CreateOffer() {
                             id="type"
                             name="type"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Type]}
+                            value={values[EditOfferFormKeys.Type]}
                         />
                     </div>
 
@@ -55,7 +67,7 @@ export default function CreateOffer() {
                             id="location"
                             name="location"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Location]}
+                            value={values[EditOfferFormKeys.Location]}
                         />
                     </div>
 
@@ -67,7 +79,7 @@ export default function CreateOffer() {
                             id="district"
                             name="district"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.District]}
+                            value={values[EditOfferFormKeys.District]}
                         />
                     </div>
 
@@ -78,7 +90,7 @@ export default function CreateOffer() {
                             id="rooms"
                             name="rooms"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Rooms]}
+                            value={values[EditOfferFormKeys.Rooms]}
                         />
                     </div>
 
@@ -90,7 +102,7 @@ export default function CreateOffer() {
                             id="floor"
                             name="floor"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Floor]}
+                            value={values[EditOfferFormKeys.Floor]}
                         />
                     </div>
 
@@ -102,7 +114,7 @@ export default function CreateOffer() {
                             id="price"
                             name="price"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Price]}
+                            value={values[EditOfferFormKeys.Price]}
                         />
                     </div>
 
@@ -114,7 +126,7 @@ export default function CreateOffer() {
                             id="currency"
                             name="currency"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Currency]}
+                            value={values[EditOfferFormKeys.Currency]}
                         />
                     </div>
 
@@ -126,7 +138,7 @@ export default function CreateOffer() {
                             id="area"
                             name="area"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Area]}
+                            value={values[EditOfferFormKeys.Area]}
                         />
                     </div>
 
@@ -138,7 +150,7 @@ export default function CreateOffer() {
                             id="yearOfBuilding"
                             name="yearOfBuilding"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.YearOfBuilding]}
+                            value={values[EditOfferFormKeys.YearOfBuilding]}
                         />
                     </div>
 
@@ -149,7 +161,7 @@ export default function CreateOffer() {
                             id="description"
                             name="description"
                             onChange={onChange}
-                            value={values[CreateOfferFormKeys.Description]}
+                            value={values[EditOfferFormKeys.Description]}
                         />
                     </div>
 

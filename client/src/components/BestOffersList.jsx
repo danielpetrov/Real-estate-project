@@ -1,8 +1,7 @@
 //import properties from "../properties"
 import { useEffect, useState } from "react"
-import OfferElement from "./OfferElement"
+import OfferCard from "./OfferCard"
 import { getAll } from "../services/propertyService"
-
 
 export default function BestOffersList() {
     const [properties, setProperties] = useState([])
@@ -23,19 +22,7 @@ export default function BestOffersList() {
             <div className="best-offers-list">
                 {[properties.map((property) => (
 
-                    <OfferElement
-                        propertyType={property.propertyType}
-                        key={property.id}
-                        location={property.location}
-                        district={property.district}
-                        price={property.price}
-                        currency={property.currency}
-                        area={property.area}
-                        yearOfBuilding={property.yearOfBuilding}
-                        description={property.description}
-                        id={property.id}
-
-                    />
+                    <OfferCard property={property} editEnabled={false}/>
 
                 )
                 )]}
