@@ -3,19 +3,20 @@
 import { useContext } from "react"
 import useForm from "../hooks/useForm"
 import AuthContext from "../contexts/authContext"
+
 const LoginFormKeys = {
     Email: 'email',
     Password: 'password',
 }
 
 export default function Login() {
-    const {loginSubmitHandler} = useContext(AuthContext)
-   
+    const { loginSubmitHandler } = useContext(AuthContext)
+
     const { values, onChange, onSubmit } = useForm(loginSubmitHandler, {
         [LoginFormKeys.Email]: '',
         [LoginFormKeys.Password]: ''
     })
-    
+
 
     // const [emailValue, setEmailValue] = useState ('')
     // const [passwordValue, setPasswordValue] = useState ('')
@@ -44,31 +45,33 @@ export default function Login() {
     // }
 
     return (
-        <>
-            <div className="login-div">
-                <form className="login-form" onSubmit={onSubmit}>
-                    <label htmlFor="email">Имейл:</label><br />
-                    <input
-                        type="email"
-                        id="email"
-                        name={LoginFormKeys.Email}
-                        onChange={onChange}
-                        value={values[LoginFormKeys.Email]}
-                    />
-                    <br />
-                    <label htmlFor="password">Парола:</label><br />
-                    <input
-                        type="password"
-                        id="password"
-                        name={LoginFormKeys.Password}
-                        value={values[LoginFormKeys.Password]}
-                        onChange={onChange}
-                    />
+            <>
+                <div className="login-div">
+                    <form className="login-form" onSubmit={onSubmit}>
+                        <label htmlFor="email">Имейл:</label><br />
+                        <input
+                            type="email"
+                            id="email"
+                            name={LoginFormKeys.Email}
+                            onChange={onChange}
+                            value={values[LoginFormKeys.Email]}
+                        />
+                        <br />
+                        <label htmlFor="password">Парола:</label><br />
+                        <input
+                            type="password"
+                            id="password"
+                            name={LoginFormKeys.Password}
+                            value={values[LoginFormKeys.Password]}
+                            onChange={onChange}
+                        />
 
-                    <input type="submit" value="Вход" />
-                </form>
+                        <input type="submit" value="Вход" />
+                    </form>
 
-            </div>
-        </>
+                </div>
+            </>
+       
     )
+  
 }

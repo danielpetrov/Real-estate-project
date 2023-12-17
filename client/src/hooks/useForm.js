@@ -10,6 +10,10 @@ export default function useForm(submitHandler, initialValues) {
         }))
     }
 
+    const updateValues = (newValues) => {
+        setValues(newValues)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
         submitHandler(values)
@@ -18,6 +22,7 @@ export default function useForm(submitHandler, initialValues) {
     return ({
         values,
         onChange,
+        updateValues,
         onSubmit
     })
 

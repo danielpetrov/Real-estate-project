@@ -17,8 +17,7 @@ export async function signup(signupData, token) {
     const response = await fetch(`${baseUrl}/users/register`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
+            "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify(signupData)
     })
@@ -47,4 +46,18 @@ export async function logout(token) {
         throw result
     }
     return result
+}
+
+export async function getProfileData(token) {
+    const response = await fetch(`${baseUrl}/users/me`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "X-Authorization": `${token}`,
+        }
+    })
+    console.log(response)
+    const profileData = await response.json()
+    console.log(profileData)
+    return profileData
 }

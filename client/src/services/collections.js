@@ -12,7 +12,7 @@ export const getMyOffers = async (token) => {
     if (response.status === 404) {
         return []
     }
-
+    
     const propertyData = await response.json()
     return Object.values(propertyData)
 };
@@ -68,3 +68,17 @@ export async function editMyOffer(id, token, editedPropertyData) {
     console.log('response', editedPropertyDetails)
     return editedPropertyDetails;
 };
+
+export const deleteOffer = async (_id, token) => {
+    const response = await fetch(`${baseUrl}/data/properties/${_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "X-Authorization": `${token}`,
+        },
+        body: JSON.stringify(_id)
+    })
+    const deletedData = await response.json()
+
+    return deletedData
+}

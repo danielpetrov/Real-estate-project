@@ -16,6 +16,7 @@ console.log(isAuthenticated, 'isAuthenticated')
                     {isAuthenticated && (
                         <div id="user-navigation">
                             <Link className='my-offers nav-link' to='/myoffers'>Моите обяви</Link>
+                            <Link className='my-profile nav-link' to='/myprofile'>Моят профил</Link>
                             {/* <Link className="add-offer-link nav-link" to='/add-offer'>Добави обява</Link> */}
                             <Link className="logout nav-link" to='/logout'>Изход</Link>
                         </div>

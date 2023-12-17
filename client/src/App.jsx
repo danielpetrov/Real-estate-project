@@ -2,7 +2,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import AuthContext from './contexts/authContext'
-import { login, logout, signup } from './services/authService'
+import { getProfileData, login, logout, signup } from './services/authService'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -19,16 +20,8 @@ import CreateOffer from './components/CreateOffer'
 import { addNewOffer, editMyOffer } from './services/collections'
 import MyOfferPage from './components/MyOfferPage'
 import EditOfferForm from './components/EditOfferForm'
-//import { CorsOptions } from 'cors'
-
-// const cors = require("cors");
-// App.use(cors());
-
-// var corsOptions = {
-//   origin: "http://localhost:3030"
-// };
-
-//App.use(cors(corsOptions));
+import Profile from './components/Profile'
+import DeleteOffer from './components/DeleteOffer'
 
 function App() {
 
@@ -61,6 +54,7 @@ function App() {
     const token = auth.accessToken
     const result = await signup(values, token)
     setAuth(result)
+    window.localStorage.setItem('auth', JSON.stringify(result))
     navigate(Path.Home)
   }
 
@@ -76,6 +70,7 @@ function App() {
     console.log(auth)
     const token = auth.accessToken
     const result = await addNewOffer(values, token)
+      .then(navigate(Path.MyOffers))
     console.log(result)
 
   }
@@ -86,6 +81,12 @@ function App() {
     console.log(result)
   }
 
+  const getProfileDataHandler = async () => {
+    const token = auth.accessToken
+    const result = await getProfileData(token)
+    console.log(result)
+  }
+
   console.log('auth', auth)
   const authContextValues = {
     loginSubmitHandler,
@@ -93,33 +94,36 @@ function App() {
     logoutHandler,
     addNewOfferHandler,
     editOfferHandler,
+    getProfileDataHandler,
     email: auth.email,
     isAuthenticated: !!auth.accessToken,
     token: auth.accessToken
   }
 
   return (
-    <AuthContext.Provider value={authContextValues}>
-      <>
-        <Header />
+      <AuthContext.Provider value={authContextValues}>
+        <>
+          <Header />
 
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/properties/:offerId" element={<OfferPage />}></Route>
-          <Route path={Path.Logout} element={<Logout />}></Route>
-          <Route path={Path.MyOffers} element={<MyOffers />}></Route>
-          <Route path={Path.CreateOffer} element={<CreateOffer />}></Route>
-          <Route path="/data/properties/:_id" element={<MyOfferPage />}></Route>
-          <Route path="/edit/:_id" element={<EditOfferForm />}></Route>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/properties/:offerId" element={<OfferPage />}></Route>
+            <Route path={Path.Logout} element={<Logout />}></Route>
+            <Route path={Path.MyOffers} element={<MyOffers />}></Route>
+            <Route path={Path.CreateOffer} element={<CreateOffer />}></Route>
+            <Route path="/data/properties/:_id" element={<MyOfferPage />}></Route>
+            <Route path="/edit/:_id" element={<EditOfferForm />}></Route>
+            <Route path="/delete/:_id" element={<DeleteOffer />}></Route>
+            <Route path="/myprofile" element={<Profile />}></Route>
 
-        </Routes>
+          </Routes>
 
-        <Footer />
-      </>
-    </AuthContext.Provider>
+          <Footer />
+        </>
+      </AuthContext.Provider>
   )
 }
 
