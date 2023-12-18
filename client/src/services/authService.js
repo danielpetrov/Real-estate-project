@@ -8,9 +8,15 @@ export async function login(loginData) {
         },
         body: JSON.stringify(loginData)
     })
-    const loggedData = await response.json()
-    
-    return loggedData
+
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
+
+    const data = await response.json()   
+
+    return data
 }
 
 export async function signup(signupData, token) {
@@ -21,6 +27,12 @@ export async function signup(signupData, token) {
         },
         body: JSON.stringify(signupData)
     })
+
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
+
     const signedupData = await response.json()
     console.log(signedupData)
     return signedupData
@@ -29,6 +41,7 @@ export async function signup(signupData, token) {
 
 
 export async function logout(token) {
+    console.log(token)
     const response = await fetch(`${baseUrl}/users/logout`, {
         method: "GET",
         headers: {
@@ -37,15 +50,10 @@ export async function logout(token) {
         }
     })
 
-    if (response.status === 204) {
+    if (response.status === 403) {
         return {}
     }
 
-    const result = await response.json()
-    if(!response.ok) {
-        throw result
-    }
-    return result
 }
 
 export async function getProfileData(token) {

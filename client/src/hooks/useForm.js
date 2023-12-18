@@ -25,5 +25,4 @@ export default function useForm(submitHandler, initialValues) {
         updateValues,
         onSubmit
     })
-
 }

@@ -6,6 +6,7 @@ export const getAll = async () => {
     return Object.values(propertyData)
 };
 
+// TODO: better names
 export async function getOne (id) {
     const response = await fetch(`${baseUrl}/jsonstore/properties/${id}`);
     console.log(response)

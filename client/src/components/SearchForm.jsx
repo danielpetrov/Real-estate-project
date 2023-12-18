@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button'
 
 export default function SearchForm() {
     const [expanded, setExpanded] = useState(false)
@@ -16,8 +18,8 @@ export default function SearchForm() {
 
 
     return (
-        <div className={`searchFormDiv${expanded ? ' expanded' : ''}`}>
-            <h4 id="search-form-title">Започни търсенето сега</h4>
+        <Card border="dark" className={`searchFormDiv${expanded ? ' expanded' : ''}`}>
+            <h4 id="search-form-title">Започни търсенето</h4>
             <form className="search-form" action="url" >
                 {/* <Select
                     showSearch
@@ -75,10 +77,10 @@ export default function SearchForm() {
                 <input className={!expanded ? 'hidden' : ''} type="number" id="rooms" name="rooms" />
             </form>
 
-            <button className="search-btn-form">Търсене</button>
+            <Button variant="primary" className="search-btn-form">Търсене</Button>
 
             <button className="filters-btn" onClick={() => { setExpanded(!expanded) }}>Допълнителни филтри ⬇</button>
 
-        </div>
+        </Card>
     )
 }

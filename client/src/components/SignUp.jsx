@@ -1,6 +1,8 @@
 import { useContext } from "react"
 import AuthContext from "../contexts/authContext"
 import useForm from "../hooks/useForm"
+import Button from "react-bootstrap/esm/Button"
+import Card from "react-bootstrap/Card"
 
 
 const RegisterFormKeys = {
@@ -8,7 +10,7 @@ const RegisterFormKeys = {
     Email: 'email',
     Password: 'password',
     Username: 'username',
-    ConfirmedPassword: 'confirmed-password',
+    ConfirmedPassword: 'confirmedPassword',
 }
 export default function SignUp() {
 
@@ -23,10 +25,12 @@ export default function SignUp() {
 
     return (
         <>
-            <div className="signup-form-wrapper">
+        <div className="signup-form-wrapper">
+            <Card className="signup-form-card">
                 <form className="signup-form" action="url" onSubmit={onSubmit}>
                     <label htmlFor="name">Име:</label>
                     <input 
+                        required
                         type="text" 
                         id="name" 
                         name="name"
@@ -35,6 +39,7 @@ export default function SignUp() {
                     />      
                     <label htmlFor="email">Имейл:</label>
                     <input 
+                        required
                         type="email" 
                         id="email" 
                         name="email"
@@ -43,6 +48,7 @@ export default function SignUp() {
                     />
                     <label htmlFor="username">Потребителско име:</label>
                     <input 
+                        required
                         type="text" 
                         id="username" 
                         name="username"
@@ -51,39 +57,26 @@ export default function SignUp() {
                     />
                     <label htmlFor="password">Парола:</label>
                     <input 
+                        required
                         type="password" 
                         id="password"
                         name="password"
                         onChange={onChange}
                         value={values[RegisterFormKeys.Password]} 
                     />
-                    <label htmlFor="confirmed-password">Повторете паролата:</label>
+                    <label htmlFor="confirmedPassword">Повторете паролата:</label>
                     <input 
+                        required
                         type="password" 
-                        id="confirmed-password"
-                        name="confirmed-password"
+                        id="confirmedPassword"
+                        name="confirmedPassword"
                         onChange={onChange}
                         value={values[RegisterFormKeys.ConfirmedPassword]} 
                     />
-                    {/* <p>Вие сте:
-                        <input 
-                            type="radio" 
-                            id="real-estate-agency" 
-                            name="agency" 
-                            value="Агенция" 
-                        />
-                        <label htmlFor="real-estate-agency">Агенция</label>
-                        <input 
-                            type="radio" 
-                            id="individual" 
-                            name="individual" 
-                            value="Частно лице" 
-                        />
-                        <label htmlFor="individual">Частно лице</label>
-                    </p> */}
 
-                    <input type="submit" value="Регистрирай"></input>
+                    <Button variant="primary" type="submit" value="Регистрирай">Регистрирай</Button>
                 </form>
+            </Card>
             </div>
         </>
 

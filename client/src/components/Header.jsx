@@ -12,10 +12,13 @@ console.log(isAuthenticated, 'isAuthenticated')
         <>
             <header>
                 <nav className="navigation">
-                    <Link className="home-link nav-link" to='/'>Home</Link>
+                    <Link className="home-link nav-link" to='/'>Начало</Link>
                     {isAuthenticated && (
                         <div id="user-navigation">
                             <Link className='my-offers nav-link' to='/myoffers'>Моите обяви</Link>
+                            {email === "admin@abv.bg" && (
+                               <Link className='all-offers nav-link' to='/alloffers'>Всички обяви</Link> 
+                            )}
                             <Link className='my-profile nav-link' to='/myprofile'>Моят профил</Link>
                             {/* <Link className="add-offer-link nav-link" to='/add-offer'>Добави обява</Link> */}
                             <Link className="logout nav-link" to='/logout'>Изход</Link>

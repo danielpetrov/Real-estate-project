@@ -14,8 +14,9 @@ export default function Profile() {
     }, [isAuthenticated, token])
 
     return(
-        <>
+        <div className="profile-wrapper">
+
             <h1>Моят профил</h1>
-        </>
+        </div>
     )
 }
