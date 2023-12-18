@@ -14,6 +14,8 @@ export default function OfferPage(props) {
     }, [offerId])
 
     return (
+        <div className="offer-page-wrapper">
         <OfferDetails propertyDetails={property} isLoading={false}/>
+        </div>
     )
 }

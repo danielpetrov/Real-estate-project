@@ -53,6 +53,10 @@ export async function logout(token) {
     if (response.status === 403) {
         return {}
     }
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
 
 }
 
@@ -64,6 +68,10 @@ export async function getProfileData(token) {
             "X-Authorization": `${token}`,
         }
     })
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
     console.log(response)
     const profileData = await response.json()
     console.log(profileData)

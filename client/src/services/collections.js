@@ -12,6 +12,10 @@ export const getMyOffers = async (token) => {
     if (response.status === 404) {
         return []
     }
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
     
     const propertyData = await response.json()
     return Object.values(propertyData)
@@ -27,6 +31,10 @@ export const addNewOffer = async (propertyDetails, token) => {
         },
         body: JSON.stringify(propertyDetails)
     })
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
     const propertyData = await response.json()
 
     return propertyData
@@ -43,6 +51,10 @@ export async function getMyOffer(id, token) {
 
     if (response.status === 404) {
         return {}
+    }
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
     }
     const data = await response.json();
     console.log('data', data)
@@ -64,6 +76,7 @@ export async function editMyOffer(id, token, editedPropertyData) {
     if (response.status === 404) {
         return {}
     }
+    
     const editedPropertyDetails = await response.json();
     console.log('response', editedPropertyDetails)
     return editedPropertyDetails;
@@ -78,6 +91,11 @@ export const deleteOffer = async (_id, token) => {
         },
         body: JSON.stringify(_id)
     })
+
+    if (!response.ok) {
+        const error = await response.json()
+        throw error
+    }
     const deletedData = await response.json()
 
     return deletedData

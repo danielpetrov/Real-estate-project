@@ -4,10 +4,11 @@ import AuthContext from "../contexts/authContext"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
 import locations from '../locations'
+import { onlyUnique } from "../utils"
 
 const CreateOfferFormKeys = {
     Type: 'type',
-    Location: 'location',
+    City: 'city',
     District: 'district',
     Rooms: 'rooms',
     Floor: 'floor',
@@ -22,7 +23,7 @@ export default function CreateOffer() {
     const { addNewOfferHandler } = useContext(AuthContext)
     const { values, onChange, onSubmit } = useForm(addNewOfferHandler, {
         [CreateOfferFormKeys.Type]: '',
-        [CreateOfferFormKeys.Location]: '',
+        [CreateOfferFormKeys.City]: '',
         [CreateOfferFormKeys.District]: '',
         [CreateOfferFormKeys.Rooms]: '',
         [CreateOfferFormKeys.Floor]: '',
@@ -33,7 +34,7 @@ export default function CreateOffer() {
         [CreateOfferFormKeys.Description]: '',
     })
 
-
+    console.log(values, values[CreateOfferFormKeys.City], locations.filter(location => location.City === values[CreateOfferFormKeys.City]))
     return (
         <div className="create-offer-page">
             <h1>NewOffer</h1>
@@ -43,7 +44,6 @@ export default function CreateOffer() {
                     <div>
                         <label htmlFor="type">Тип на имота:</label>
                         <select id="type" name="type">
-                            <option value="Type" selected hidden>Вид имот</option>
                             <option value="Apartment">Апартамент</option>
                             <option value="House">Къща</option>
                             <option value="plot">Парцел</option>
@@ -52,29 +52,25 @@ export default function CreateOffer() {
 
                     <div>
                         <label htmlFor="city">Град:</label>
-                        <select id="city" name="city" required>
-                            <option value="City" selected hidden>Изберете град</option>
-                            <option value="София">София</option>
-                            <option value="Пловдив">Пловдив</option>
-                            <option value="Варна">Варна</option>
+                        <select id="city" name="city" required onChange={onChange}>
+                            <option value={null} selected hidden>Град</option>
+                            {locations.map((location) => (location.City)).filter(onlyUnique).map(city =>
+                                <option key={city} value={city}>{city}</option>)}
+
                         </select>
                     </div>
 
 
                     <div>
                         <label htmlFor="district">Квартал:</label>
-                        <select id="city" name="city">
-                            {/* {
-                            [locations.filter((locations) => locations.key == [form.city].value)]
-                            [locations.map((location) => (
+                        <select id="district" name="district" disabled={!values[CreateOfferFormKeys.City]}>
+                            <option value={null} selected hidden>Квартал</option>
+                            {locations.filter(location => location.City === values[CreateOfferFormKeys.City]).map((location) => (location.District)).map(district =>
+                                <option key={district} value={district}>{district}</option>)}
 
-                                <option value={locations.value}>{location.value}</option>
-
-                            )
-                            )]} */}
-                            
                         </select>
                     </div>
+
 
                     <div>
                         <label htmlFor="rooms" >Стаи:</label>
@@ -173,6 +169,7 @@ export default function CreateOffer() {
                             maxLength={1200}
                         />
                     </div>
+
 
                     <Button
                         type="submit" value="Submit">Създай обява</Button>

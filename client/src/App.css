@@ -447,6 +447,21 @@ footer {
   min-height: 91.9vh;
 }
 
+.offer-wrapper {
+
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  position: relative;
+  min-height: 91.9vh;
+  width: 100%;
+  flex-wrap: wrap;
+  align-content: space-between;
+  width: calc(100vw - 20px);
+  overflow: hidden;
+}
+
 .loader-wrapper {
   position: absolute;
   min-height: 91.9vh;

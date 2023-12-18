@@ -7,7 +7,7 @@ export default function Header() {
         isAuthenticated,
         email
     } = useContext(AuthContext)
-console.log(isAuthenticated, 'isAuthenticated')
+
     return (
         <>
             <header>
