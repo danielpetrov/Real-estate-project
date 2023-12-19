@@ -10,26 +10,32 @@ export default function MyOffers() {
     const {isAuthenticated, token, ownerId, email} = useContext(AuthContext)
     const [myProperties, setMyProperties] = useState()
 
-    useEffect(() => {
-        // loader
-        // error
-        if (isAuthenticated && !myProperties) {
-            getMyOffers(token, ownerId, email)
+    const fetchOffers = async () => {
+        getMyOffers(token, ownerId, email)
             .then(result => setMyProperties(result, email))
-        }
+    }
+    useEffect(() => {
+        try {
+            if (isAuthenticated && !myProperties) {
+                fetchOffers()
+            }
+        } catch (e) {
+            console.error(e)
+        }       
     }, [isAuthenticated, myProperties, ownerId])
 
     if (!isAuthenticated) {
         return <div> Login please </div>
     }
+
     return(
         <div className={styles["my-offers-list-wrapper"]}>
             <h1>Моите обяви</h1>
             <Button><Link className={styles["add-offer-link"]} to='/createoffer'>Добави обява</Link></Button>
             <div className={styles["my-offers-list"]}>
-                {myProperties && [myProperties.map((property) => (
-                    <OfferCard key={property._id} property={property} editEnabled={true} />
-                ))]} 
+                {myProperties && myProperties.map((property) => (
+                    <OfferCard key={property._id} property={property} editEnabled={true} fetchOffers={fetchOffers} />
+                ))} 
             </div>
         </div>
     )

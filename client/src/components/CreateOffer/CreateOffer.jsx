@@ -35,7 +35,6 @@ export default function CreateOffer() {
         [CreateOfferFormKeys.Description]: '',
     })
 
-    console.log(values, values[CreateOfferFormKeys.City], locations.filter(location => location.City === values[CreateOfferFormKeys.City]))
     return (
         <div className={styles["create-offer-page"]}>
             <h1>Създай нова оферта</h1>

@@ -6,7 +6,7 @@ import styles from './OfferCard.module.css'
 import { deleteOffer } from "../../services/collections"
 import AuthContext from "../../contexts/authContext"
 
-export default function OfferCard({ property, editEnabled }) {
+export default function OfferCard({ property, editEnabled, fetchOffers }) {
     const { token } = useContext(AuthContext)
     const {
         location,
@@ -21,15 +21,13 @@ export default function OfferCard({ property, editEnabled }) {
         // imgUrl,
     } = property
 
-    const onDelete = () => {
-        // loader
-        // error
-        
-        deleteOffer(_id, token)
-        // on success call fetch again
-        //getMyOffers(token)
-          //  .then(result => setMyProperties(result))
-        
+    const onDelete = async () => {
+        try{
+            await deleteOffer(_id, token) 
+            await fetchOffers() 
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     if (!property) {
