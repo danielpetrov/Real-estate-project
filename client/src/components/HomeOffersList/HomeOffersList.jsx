@@ -1,15 +1,10 @@
-//import properties from "../properties"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import OfferCard from "../OfferCard/OfferCard"
-import { getAll } from "../../services/propertyService"
 import styles from './HomeOffersList.module.css'
 
-export default function HomeOffersList() {
-    const [properties, setProperties] = useState([])
-
+export default function HomeOffersList({ properties, getProperties }) {
     useEffect(() => {
-        getAll()
-            .then(result => setProperties(result))
+        getProperties()
     }, [])
 
     return (
@@ -23,7 +18,7 @@ export default function HomeOffersList() {
             <div className={styles["best-offers-list"]}>
                 {[properties.map((property) => (
 
-                    <OfferCard key={property.id} property={property} editEnabled={false} />
+                    <OfferCard key={property._id} property={property} editEnabled={false} />
 
                 )
                 )]}

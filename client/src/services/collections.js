@@ -1,6 +1,7 @@
+//import { getProfileData } from "./authService";
 const baseUrl = "http://localhost:3030"
 
-export const getMyOffers = async (token) => {
+export const getMyOffers = async (token, ownerId, email) => {
     const response = await fetch(`${baseUrl}/data/properties`, {
         method: "GET",
         headers: {
@@ -18,7 +19,8 @@ export const getMyOffers = async (token) => {
     }
     
     const propertyData = await response.json()
-    return Object.values(propertyData)
+
+    return propertyData.filter(item => item._ownerId === ownerId || email === 'admin@abv.bg')
 };
 
 

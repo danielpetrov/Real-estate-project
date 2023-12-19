@@ -1,67 +1,59 @@
 import { useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
+import locations from '../locations'
+import { onlyUnique } from "../utils"
 
-export default function SearchForm() {
-    const [expanded, setExpanded] = useState(false)
+export default function SearchForm({ getHomeOfferList }) {
+    const [values, setValues] = useState({
+        city: '',
+        type: '',
+        district: '',
+        budgetLowest: 0,
+        budgetHighest: 0,
+    })
 
-    const onChange = (value) => {
-        console.log(`selected ${value}`);
+    const onChange = (e) => {
+        setValues(state => ({
+            ...state,
+            [e.target.name]: e.target.value,
+        }))
+    }
+    const onSearch = () => {
+        getHomeOfferList(values)
     };
-    const onSearch = (value) => {
-        console.log('search:', value);
-    };
-
-    // Filter `option.label` match the user type `input`
-    const filterOption = (input, option) =>
-        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-
 
     return (
-        <Card border="dark" className={`searchFormDiv${expanded ? ' expanded' : ''}`}>
+        <Card border="dark" className={'searchFormDiv'}>
             <h4 id="search-form-title">Започни търсенето</h4>
             <form className="search-form" action="url" >
-                {/* <Select
-                    showSearch
-                    placeholder="Изберете град"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    onSearch={onSearch}
-                    filterOption={filterOption}
-                    options={[
-                        {
-                            value: 'Sofia',
-                            label: 'София',
-                        },
-                        {
-                            value: 'Plovdiv',
-                            label: 'Пловдив',
-                        },
-                        {
-                            value: 'Varna',
-                            label: 'Варна',
-                        },
-                    ]}
-                /> */}
-
                 <label htmlFor="offer-type"></label>
-                <select id="offer-type" name="offer-type">
+                <select id="offer-type" name="offer-type" onChange={onChange}>
                     <option value="offer-type" selected hidden>Тип обява</option>
                     <option value="sell">Продава</option>
                     <option value="rent">Дава под наем</option>
-                    
+
                 </select>
-                
+
                 <label htmlFor="city"></label>
-                <select id="city" name="city">
-                    <option value="City" selected hidden>Изберете град</option>
-                    <option value="Sofia">София</option>
-                    <option value="Plovdiv">Пловдив</option>
-                    <option value="Varna">Варна</option>
+                <select id="city" name="city" required onChange={onChange}>
+                    <option value={null} selected hidden>Град</option>
+                    {locations.map((location) => (location.City)).filter(onlyUnique).map(city =>
+                        <option key={city} value={city}>{city}</option>)}
+
+                </select>
+
+
+                <label htmlFor="district"></label>
+                <select id="district" name="district" disabled={!values.city} onChange={onChange}>
+                    <option value={null} selected hidden>Квартал</option>
+                    {locations.filter(location => location.City === values.city).map((location) => (location.District)).map(district =>
+                        <option key={district} value={district}>{district}</option>)}
+
                 </select>
 
                 <label htmlFor="type"></label>
-                <select id="type" name="type">
+                <select id="type" name="type" onChange={onChange}>
                     <option value="Type" selected hidden>Вид имот</option>
                     <option value="Apartment">Апартамент</option>
                     <option value="House">Къща</option>
@@ -69,18 +61,13 @@ export default function SearchForm() {
                 </select>
 
                 <label htmlFor="budget-lowest"></label>
-                <input type="number" id="budget-lowest" name="budget-lowest" placeholder='Бюджет от'/>
+                <input name="budgetLowest" onChange={onChange} style={{ minWidth: '120px' }} type="number" id="budget-lowest" placeholder='Бюджет от' />
 
                 <label htmlFor="budget-highest"></label>
-                <input type="number" id="budget-highest" name="budget-highest" placeholder='Бюджет до'/>
-
-                <input className={!expanded ? 'hidden' : ''} type="number" id="rooms" name="rooms" />
+                <input name="budgetHighest" onChange={onChange} style={{ minWidth: '120px' }} type="number" id="budget-highest" placeholder='Бюджет до' />
             </form>
 
-            <Button variant="primary" className="search-btn-form">Търсене</Button>
-
-            <button className="filters-btn" onClick={() => { setExpanded(!expanded) }}>Допълнителни филтри ⬇</button>
-
+            <Button variant="primary" className="search-btn-form" onClick={onSearch}>Търсене</Button>
         </Card>
     )
 }

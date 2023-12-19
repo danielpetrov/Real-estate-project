@@ -7,18 +7,17 @@ import Button from "react-bootstrap/esm/Button"
 import styles from './MyOffers.module.css'
 
 export default function MyOffers() {
-    const {isAuthenticated, token} = useContext(AuthContext)
+    const {isAuthenticated, token, ownerId, email} = useContext(AuthContext)
     const [myProperties, setMyProperties] = useState()
-    console.log(myProperties)
 
     useEffect(() => {
         // loader
         // error
         if (isAuthenticated && !myProperties) {
-            getMyOffers(token)
-            .then(result => setMyProperties(result))
+            getMyOffers(token, ownerId, email)
+            .then(result => setMyProperties(result, email))
         }
-    }, [isAuthenticated, myProperties])
+    }, [isAuthenticated, myProperties, ownerId])
 
     if (!isAuthenticated) {
         return <div> Login please </div>

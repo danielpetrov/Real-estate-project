@@ -4,9 +4,8 @@ import { useContext } from 'react';
 
 
 export default function Loader() {
-    
     const { loading } = useContext(LoaderContext)
-    console.log(loading.isLoading)
+
     if (!loading.isLoading) {
         return null
     }

@@ -1,6 +1,5 @@
 .my-offers-list-wrapper {
-
-    display: flex;
+  display: flex;
     align-content: center;
     width: 100%;
     flex-direction: column;
@@ -19,10 +18,12 @@
   }
 
   .my-offers-list {
-    display: flex;
-    flex-wrap: wrap;
+    width: -webkit-fill-available;
+    margin-top: 10px;
+    margin-bottom: 70px;
+    display: flex inline;
+    column-gap: 40px;
+    row-gap: 40px;
     justify-content: center;
-    align-content: center;
-    align-items: center;
-  
+    flex-wrap: wrap;
   }

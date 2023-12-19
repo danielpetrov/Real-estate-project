@@ -6,7 +6,7 @@ import ErrorContext from './contexts/errorContext'
 import { getProfileData, login, logout, signup } from './services/authService'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Footer from './components/Footer/Footer'
-import Header from './components/Header'
+import Header from './components/Header/Header'
 import HomePage from './components/HomePage'
 import Login from './components/Login/Login'
 import './App.css'
@@ -23,15 +23,13 @@ import Profile from './components/Profile'
 import ErrorPopup from './components/ErrorPopup/ErrorPopup'
 import Loader from './components/Loader'
 import LoaderContext from './contexts/loaderContext'
-
+import { getAll } from "./services/propertyService"
 
 function App() {
-
-
   const [auth, setAuth] = useState({})
   const [error, setError] = useState({ hasError: false })
   const [loading, setLoading] = useState({ isLoading: false })
-
+  const [homeOfferList, setHomeOfferList] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -116,6 +114,18 @@ function App() {
     const result = await getProfileData(token)
   }
 
+  const getHomeOfferList = async (filters) => {
+    try {
+      setLoading({ isLoading: true })
+      getAll(filters)
+        .then(result => setHomeOfferList(result))
+
+    } catch (e) {
+      setError({ hasError: true, message: e.message })
+    } finally {
+      setLoading({ isLoading: false })
+    }
+  }
   const authContextValues = {
     loginSubmitHandler,
     registerSubmitHandler,
@@ -125,7 +135,8 @@ function App() {
     getProfileDataHandler,
     email: auth.email,
     isAuthenticated: !!auth.accessToken,
-    token: auth.accessToken
+    token: auth.accessToken,
+    ownerId: auth._id,
   }
 
   const errorContextValues = {
@@ -147,7 +158,7 @@ function App() {
             <Loader />
 
             <Routes>
-              <Route path="/" element={<HomePage />}></Route>
+              <Route path="/" element={<HomePage properties={homeOfferList} getHomeOfferList={getHomeOfferList} />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/properties/:offerId" element={<OfferPage />}></Route>
