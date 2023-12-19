@@ -1,0 +1,76 @@
+.best-offers {
+    width: 450px;
+    height: 295px;
+    border: solid 1px rgb(112, 112, 112);
+    border-radius: 7px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.offer-title {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.offer-characteristics {
+    position: relative;
+}
+
+.right-positioned-specs {
+    position: relative;
+    left: 190px;
+    top: 10px;
+}
+
+.short-offer-description {
+    width: 380px;
+    height: 50px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.short-offer-description-li {
+    position: relative;
+    top: 50px;
+}
+
+.link-to-offer {
+    position: relative;
+    top: 40px;
+}
+
+.btn-edit-offer {
+    position: relative;
+    top: 40px;
+    left: 10px;
+}
+
+.link-to-edit-offer {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-delete-offer {
+    position: relative;
+    top: 40px;
+    left: 15px;
+}
+
+.link-to-delete-offer {
+    text-decoration: none;
+    color: white;
+}
+
+.offer-heading-img {
+    width: 180px;
+    height: 130px;
+    position: relative;
+    top: -190px;
+    left: 20px;
+    z-index: 0;
+}

@@ -57,7 +57,7 @@ export async function getMyOffer(id, token) {
         throw error
     }
     const data = await response.json();
-    console.log('data', data)
+
     return data;
 };
 

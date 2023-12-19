@@ -1,0 +1,29 @@
+.login-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* height: 500px; */
+    padding-bottom: 3.5rem;
+    min-height: 91.9vh;
+  }
+
+  .login-form-card {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 20px;
+    width: 350px;
+    height: 200px;
+  }
+
+  .login-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 20px;
+    width: 260px;
+    height: 140px;
+  }

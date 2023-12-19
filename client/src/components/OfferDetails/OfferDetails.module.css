@@ -1,0 +1,46 @@
+.offer-wrapper {
+    display: flex;
+}
+
+.photo-container {
+    border: solid 1px;
+    width: 500px;
+    height: 300px;
+    margin-left: 30px;
+}
+
+.offer-details {
+    width: 700px;
+    height: 500px;
+}
+
+.offer-title {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.offer-characteristics {
+  position: relative;
+}
+.right-positioned-specs {
+  position: relative;
+  left: 190px;
+  top: 10px;
+}
+
+.offer-description-li {
+  position: relative;
+  top: 50px;
+}
+
+.offer-description {
+  width: 380px;
+  height: 50px;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+

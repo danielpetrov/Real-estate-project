@@ -1,8 +1,9 @@
 import { useContext } from "react"
-import AuthContext from "../contexts/authContext"
-import useForm from "../hooks/useForm"
+import AuthContext from "../../contexts/authContext"
+import useForm from "../../hooks/useForm"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
+import styles from './SignUp.module.css'
 
 
 const RegisterFormKeys = {
@@ -25,9 +26,9 @@ export default function SignUp() {
 
     return (
         <>
-        <div className="signup-form-wrapper">
-            <Card className="signup-form-card">
-                <form className="signup-form" action="url" onSubmit={onSubmit}>
+        <div className={styles["signup-form-wrapper"]}>
+            <Card className={styles["signup-form-card"]}>
+                <form className={styles["signup-form"]} action="url" onSubmit={onSubmit}>
                     <label htmlFor="name">Име:</label>
                     <input 
                         required

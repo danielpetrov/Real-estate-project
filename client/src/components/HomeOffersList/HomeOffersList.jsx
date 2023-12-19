@@ -1,9 +1,10 @@
 //import properties from "../properties"
 import { useEffect, useState } from "react"
-import OfferCard from "./OfferCard"
-import { getAll } from "../services/propertyService"
+import OfferCard from "../OfferCard/OfferCard"
+import { getAll } from "../../services/propertyService"
+import styles from './HomeOffersList.module.css'
 
-export default function BestOffersList() {
+export default function HomeOffersList() {
     const [properties, setProperties] = useState([])
 
     useEffect(() => {
@@ -11,7 +12,6 @@ export default function BestOffersList() {
             .then(result => setProperties(result))
     }, [])
 
-    console.log(properties)
     return (
         <div
             style={{
@@ -19,8 +19,8 @@ export default function BestOffersList() {
                 overflow: 'hidden'
             }}
         >
-            <h1 className="offer-list-title">Последни оферти</h1>
-            <div className="best-offers-list">
+            <h1 className={styles["offer-list-title"]}>Последни оферти</h1>
+            <div className={styles["best-offers-list"]}>
                 {[properties.map((property) => (
 
                     <OfferCard key={property.id} property={property} editEnabled={false} />

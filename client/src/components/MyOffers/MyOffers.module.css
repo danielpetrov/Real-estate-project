@@ -1,0 +1,28 @@
+.my-offers-list-wrapper {
+
+    display: flex;
+    align-content: center;
+    width: 100%;
+    flex-direction: column;
+    row-gap: 20px;
+    position: relative;
+    min-height: 91.9vh;
+    flex-wrap: wrap;
+    align-items: center;
+    width: calc(100vw - 20px);
+    overflow: hidden;
+  }
+
+  .add-offer-link {
+    text-decoration: none;
+    color: white;
+  }
+
+  .my-offers-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  
+  }

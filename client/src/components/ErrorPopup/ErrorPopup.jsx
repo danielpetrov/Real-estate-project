@@ -1,6 +1,7 @@
 import Alert from 'react-bootstrap/Alert'
 import { useContext } from 'react'
-import ErrorContext from '../contexts/errorContext'
+import ErrorContext from '../../contexts/errorContext'
+import styles from './ErrorPopup.module.css'
 
 export default function ErrorPopup() {
     const { error, setError } = useContext(ErrorContext)
@@ -10,11 +11,11 @@ export default function ErrorPopup() {
     }
 
     return (
-        <div className="alert-wrapper">
+        <div className={styles["alert-wrapper"]}>
             <Alert 
             
                 style={{zIndex: "6"}}
-                className={`${error?.hasError ? 'show-alert' : ''}`} 
+                className={styles[` alert ${error?.hasError ? 'show-alert' : ''}`]} 
                 variant={'danger'} 
                 onClose={() => {
                   setError({ hasError: false })

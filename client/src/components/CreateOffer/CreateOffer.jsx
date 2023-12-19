@@ -1,10 +1,11 @@
-import useForm from "../hooks/useForm"
+import useForm from "../../hooks/useForm"
 import { useContext } from "react"
-import AuthContext from "../contexts/authContext"
+import AuthContext from "../../contexts/authContext"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
-import locations from '../locations'
-import { onlyUnique } from "../utils"
+import locations from '../../locations'
+import { onlyUnique } from "../../utils"
+import styles from "./CreateOffer.module.css"
 
 const CreateOfferFormKeys = {
     Type: 'type',
@@ -36,11 +37,11 @@ export default function CreateOffer() {
 
     console.log(values, values[CreateOfferFormKeys.City], locations.filter(location => location.City === values[CreateOfferFormKeys.City]))
     return (
-        <div className="create-offer-page">
-            <h1>NewOffer</h1>
-            <Card className="add-new-offer-wrapper">
+        <div className={styles["create-offer-page"]}>
+            <h1>Създай нова оферта</h1>
+            <Card className={styles['add-new-offer-wrapper']}>
 
-                <form className="add-new-offer-form" onSubmit={onSubmit} action="">
+                <form className={styles["add-new-offer-form"]} onSubmit={onSubmit} action="">
                     <div>
                         <label htmlFor="type">Тип на имота:</label>
                         <select id="type" name="type">

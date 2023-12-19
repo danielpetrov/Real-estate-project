@@ -1,0 +1,31 @@
+.signup-form-wrapper {
+    display: flex;
+    align-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 600px;
+    position: relative;
+    min-height: 91.9vh;
+}
+
+.signup-form-card {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 500px;
+    height: 400px;
+    margin-bottom: 3.5rem;
+}
+
+.signup-form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    column-gap: 60px;
+    flex-direction: column;
+  }

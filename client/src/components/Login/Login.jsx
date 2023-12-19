@@ -1,11 +1,12 @@
 // import { useState } from "react"
 // import { login } from "../services/loginService"
 import { useContext } from "react"
-import useForm from "../hooks/useForm"
-import AuthContext from "../contexts/authContext"
+import useForm from "../../hooks/useForm"
+import AuthContext from "../../contexts/authContext"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import styles from './Login.module.css'
 
 const LoginFormKeys = {
     Email: 'email',
@@ -22,9 +23,9 @@ export default function Login() {
 
     return (
         <>
-            <div className="login-div">
-                <Card className="login-form-card">
-                    <Form className="login-form" onSubmit={onSubmit}>
+            <div className={styles["login-div"]}>
+                <Card className={styles["login-form-card"]}>
+                    <Form className={styles["login-form"]} onSubmit={onSubmit}>
                         <label htmlFor="email">Имейл: </label><br />
                         <input
                             required

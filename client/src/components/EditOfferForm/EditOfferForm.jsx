@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import AuthContext from "../contexts/authContext"
+import AuthContext from "../../contexts/authContext"
 import { useParams } from "react-router-dom"
-import { getMyOffer } from '../services/collections'
+import { getMyOffer } from '../../services/collections'
+import styles from './EditOfferForm.module.css'
 
 const EditOfferFormKeys = {
     Type: 'type',
@@ -46,9 +47,9 @@ export default function EditOfferForm() {
     return (
         <>
             <h1>Edit Offer</h1>
-            <div className="add-new-offer-wrapper">
+            <div className={styles["add-new-offer-wrapper"]}>
 
-                <form className="add-new-offer-form" onSubmit={onSubmit} action="">
+                <form className={styles["add-new-offer-form"]} onSubmit={onSubmit} action="">
                     <div>
                         <label htmlFor="type">Тип на имота:</label>
                         <input
