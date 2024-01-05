@@ -18,7 +18,7 @@ export default function OfferCard({ property, editEnabled, fetchOffers }) {
         yearOfBuilding,
         description,
         _id,
-        // imgUrl,
+        img,
     } = property
 
     const onDelete = async () => {
@@ -62,7 +62,7 @@ export default function OfferCard({ property, editEnabled, fetchOffers }) {
                     </Button>
                 }
             </ul>
-            <img className={styles["offer-heading-img"]} src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="noimg" />
+            <img className={styles["offer-heading-img"]} src={img} />
         </Card>
     )
 }

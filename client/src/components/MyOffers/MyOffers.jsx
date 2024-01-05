@@ -30,7 +30,7 @@ export default function MyOffers() {
 
     return(
         <div className={styles["my-offers-list-wrapper"]}>
-            <h1>Моите обяви</h1>
+            <h1 className={styles["my-offers-title"]}>Моите обяви</h1>
             <Button><Link className={styles["add-offer-link"]} to='/createoffer'>Добави обява</Link></Button>
             <div className={styles["my-offers-list"]}>
                 {myProperties && myProperties.map((property) => (

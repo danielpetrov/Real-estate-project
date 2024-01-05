@@ -3,6 +3,8 @@ import AuthContext from "../../contexts/authContext"
 import { useParams } from "react-router-dom"
 import { getMyOffer } from '../../services/collections'
 import styles from './EditOfferForm.module.css'
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 const EditOfferFormKeys = {
     Type: 'type',
@@ -18,9 +20,9 @@ const EditOfferFormKeys = {
 }
 
 export default function EditOfferForm() {
-    const {isAuthenticated, editOfferHandler, token} = useContext(AuthContext)
+    const { isAuthenticated, editOfferHandler, token } = useContext(AuthContext)
     const [values, setValues] = useState()
-    const {_id} = useParams()
+    const { _id } = useParams()
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -28,7 +30,7 @@ export default function EditOfferForm() {
                 .then(result => setValues(result))
         }
     }, [isAuthenticated, setValues, token])
-    
+
     const onChange = (e) => {
         setValues(state => ({
             ...state,
@@ -40,135 +42,156 @@ export default function EditOfferForm() {
         e.preventDefault()
         editOfferHandler(_id, values)
     }
-    
+
     if (!values) {
         return
     }
     return (
         <>
-            <h1>Edit Offer</h1>
-            <div className={styles["add-new-offer-wrapper"]}>
+            <div className={styles["create-new-offer-wrapper"]}>
+                <Card className={styles["create-new-offer-card"]}>
+                    <h1 className={styles["edit-offer-form-title"]} >Редактирай оферта</h1>
+                    <form className={styles["edit-new-offer-form"]} onSubmit={onSubmit} action="">
+                        <div className={styles["row"]}>
+                            <div className={styles["left-half"]}>
+                                <div>
+                                    <label htmlFor="type-edit-form">Тип на имота:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="text"
+                                        id="type-edit-form"
+                                        name="type-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Type]}
+                                    />
+                                </div>
 
-                <form className={styles["add-new-offer-form"]} onSubmit={onSubmit} action="">
-                    <div>
-                        <label htmlFor="type">Тип на имота:</label>
+                                <div>
+                                    <label htmlFor="location-edit-form">Град:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="text"
+                                        id="location-edit-form"
+                                        name="location-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Location]}
+                                    />
+                                </div>
+
+
+                                <div>
+                                    <label htmlFor="district-edit-form">Квартал:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="text"
+                                        id="district-edit-form"
+                                        name="district-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.District]}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="rooms-edit-form" >Стаи:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="number"
+                                        id="rooms-edit-form"
+                                        name="rooms-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Rooms]}
+                                    />
+                                </div>
+
+
+                                <div>
+                                    <label htmlFor="floor-edit-form">Етаж:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="number"
+                                        id="floor-edit-form"
+                                        name="floor=edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Floor]}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className={styles["right-half"]}>
+                                <div>
+                                    <label htmlFor="price-edit-form">Цена:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="number"
+                                        id="price-edit-form"
+                                        name="price-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Price]}
+                                    />
+                                </div>
+
+
+
+
+                                <div>
+                                    <label htmlFor="currency-edit-form">Валута:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="text"
+                                        id="currency-edit-form"
+                                        name="currency-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Currency]}
+                                    />
+                                </div>
+
+
+                                <div>
+                                    <label htmlFor="area-edit-form">Площ:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="number"
+                                        id="area-edit-form"
+                                        name="area-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Area]}
+                                    />
+                                </div>
+
+
+                                <div>
+                                    <label htmlFor="yearOfBuilding-edit-form">Година на строителство:</label>
+                                    <input
+                                        className={styles["edit-offer-input"]}
+                                        type="number"
+                                        id="yearOfBuilding-edit-form"
+                                        name="yearOfBuilding-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.YearOfBuilding]}
+                                    />
+                                </div>
+
+
+                                <div>  <label htmlFor="description-edit-form">Описание:</label>
+                                    <textarea
+                                        className={styles["edit-offer-input-textarea"]}
+                                        type="text"
+                                        id="description-edit-form"
+                                        name="description-edit-form"
+                                        onChange={onChange}
+                                        value={values[EditOfferFormKeys.Description]}
+                                    />
+                                </div>
+
+                            </div>
+                        </div>
+{/* 
                         <input
-                            type="text"
-                            id="type"
-                            name="type"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Type]}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="location">Град:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Location]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="district">Квартал:</label>
-                        <input
-                            type="text"
-                            id="district"
-                            name="district"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.District]}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="rooms" >Стаи:</label>
-                        <input
-                            type="number"
-                            id="rooms"
-                            name="rooms"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Rooms]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="floor">Етаж:</label>
-                        <input
-                            type="number"
-                            id="floor"
-                            name="floor"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Floor]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="price">Цена:</label>
-                        <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Price]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="currency">Валута:</label>
-                        <input
-                            type="text"
-                            id="currency"
-                            name="currency"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Currency]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="area">Площ:</label>
-                        <input
-                            type="number"
-                            id="area"
-                            name="area"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Area]}
-                        />
-                    </div>
-
-
-                    <div>
-                        <label htmlFor="yearOfBuilding">Година на строителство:</label>
-                        <input
-                            type="number"
-                            id="yearOfBuilding"
-                            name="yearOfBuilding"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.YearOfBuilding]}
-                        />
-                    </div>
-
-
-                    <div>  <label htmlFor="description">Описание:</label>
-                        <textarea
-                            type="text"
-                            id="description"
-                            name="description"
-                            onChange={onChange}
-                            value={values[EditOfferFormKeys.Description]}
-                        />
-                    </div>
-
-                    <input
-                        type="submit" value="Submit" />
-                </form>
+                            type="submit" value="Submit"
+                        /> */}
+                        <Button className={styles["edit-offer-button"]} variant="primary" type="submit" value="Редактирай">Редактирай</Button>
+                    </form>
+                </Card>
 
                 {/* "property
                 Type": "Апартамент",

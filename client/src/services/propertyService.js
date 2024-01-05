@@ -42,7 +42,7 @@ const filterProperties = (filters, properties) => {
     })
 }
 export const getAll = async (filters) => {
-    const response = await fetch(`${baseUrl}/jsonstore/properties${buildFiltersQuery(filters)}`)
+    const response = await fetch(`${baseUrl}/data/properties${buildFiltersQuery(filters)}`)
     if (!response.ok) {
         const error = await response.json()
         throw error
@@ -59,7 +59,7 @@ export const getAll = async (filters) => {
 
 // TODO: better names
 export async function getOne (id) {
-    const response = await fetch(`${baseUrl}/jsonstore/properties/${id}`);
+    const response = await fetch(`${baseUrl}/data/properties/${id}`);
     if (!response.ok) {
         const error = await response.json()
         throw error

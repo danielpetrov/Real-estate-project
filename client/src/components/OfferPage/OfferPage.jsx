@@ -15,7 +15,7 @@ export default function OfferPage(props) {
     }, [offerId])
 
     return (
-        <div className={styles["offer-page-wrapper offer-wrapper"]}>
+        <div className={styles["offer-wrapper"]}>
         <OfferDetails propertyDetails={property} isLoading={false}/>
         </div>
     )

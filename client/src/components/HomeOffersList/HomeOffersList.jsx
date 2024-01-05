@@ -8,11 +8,8 @@ export default function HomeOffersList({ properties, getProperties }) {
     }, [])
 
     return (
-        <div
-            style={{
-                width: 'calc(100vw - 20px)',
-                overflow: 'hidden'
-            }}
+        <div className={styles["offer-list-wrapper"]}
+            
         >
             <h1 className={styles["offer-list-title"]}>Последни оферти</h1>
             <div className={styles["best-offers-list"]}>

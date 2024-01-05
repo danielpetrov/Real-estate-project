@@ -6,6 +6,13 @@
     text-decoration: none;
     color: black;
     font-size: 14px;
+    transition: .3s ease;
+}
+
+.best-offers:hover {
+    transform: scale(1.08);
+    -webkit-transform: scale(1.08);
+    -ms-transform: scale(1.08);
 }
 
 .offer-title {

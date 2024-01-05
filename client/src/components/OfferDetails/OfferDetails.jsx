@@ -9,20 +9,26 @@ export default function OfferDetails({ isLoading, propertyDetails }) {
     }
 
     return (
-        <div className={styles["offer-wrapper"]}>
-            <aside className={styles["photo-container"]}></aside>
-            <main className={styles["offer-details"]}>
-                <h1 className={styles["offer-title"]}>{propertyDetails.propertyType}</h1>
-                <ul className={styles["offer-characteristics"]}>
+        <div className={styles["offer-wrapper-page"]}>
+            <h1 className={styles["offer-title"]}>{propertyDetails.propertyType}</h1>
+            <div className={styles["offer-details"]}>
+
+                <div className={styles["offer-characteristics"]}>
+                    <div className={styles["photo-container"]}>
+                        <img className={styles["property-photo"]} src={propertyDetails.img} alt="apartment photo" />
+                    </div>
+                    <ul className={styles["offer-specs"]}>
                     <li className={styles["right-positioned-specs"]}>{propertyDetails.location}, {propertyDetails.district}</li>
                     <li className={styles["right-positioned-specs"]}>{` Цена: ${propertyDetails.price} ${propertyDetails.currency === "EUR" ? " €" : " лв."}`}</li>
                     <li className={styles["right-positioned-specs"]}>{`Площ: ${propertyDetails.area} кв.м.`}</li>
                     <li className={styles["right-positioned-specs"]}>{`Година на строителство: ${propertyDetails.yearOfBuilding}`}</li>
-                    <li className={styles["offer-description-li"]}>
-                        <p className={styles["offer-description"]}>{propertyDetails.description}</p>
-                    </li>
-                </ul>
-            </main>
+                    </ul>
+                </div>
+                <div className={styles["offer-description-li"]}>
+                    <p className={styles["offer-description-page"]}>{propertyDetails.description}</p>
+                </div>
+
+            </div>
         </div>
     )
 }

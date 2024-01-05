@@ -27,3 +27,7 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  .my-offers-title {
+    position: relative;
+  }

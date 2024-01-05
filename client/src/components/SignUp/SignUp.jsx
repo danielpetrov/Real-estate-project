@@ -4,6 +4,7 @@ import useForm from "../../hooks/useForm"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
 import styles from './SignUp.module.css'
+import { Link } from "react-router-dom"
 
 
 const RegisterFormKeys = {
@@ -28,8 +29,9 @@ export default function SignUp() {
         <>
         <div className={styles["signup-form-wrapper"]}>
             <Card className={styles["signup-form-card"]}>
+                <h1 className={styles["signup-title"]} >Регистрация</h1>
                 <form className={styles["signup-form"]} action="url" onSubmit={onSubmit}>
-                    <label htmlFor="name">Име:</label>
+                    <label htmlFor="name"></label>
                     <input 
                         required
                         type="text" 
@@ -37,45 +39,59 @@ export default function SignUp() {
                         name="name"
                         onChange={onChange}
                         value={values[RegisterFormKeys.Name]}
+                        placeholder="Име"
+                        className={styles["registration-input"]}
                     />      
-                    <label htmlFor="email">Имейл:</label>
+                    <label htmlFor="email"></label>
                     <input 
+                        placeholder="E-mail"
                         required
                         type="email" 
                         id="email" 
                         name="email"
                         onChange={onChange}
                         value={values[RegisterFormKeys.Email]}
+                        className={styles["registration-input"]}
                     />
-                    <label htmlFor="username">Потребителско име:</label>
+                    <label htmlFor="username"></label>
                     <input 
+                        placeholder="Потребителско име"
                         required
                         type="text" 
                         id="username" 
                         name="username"
                         onChange={onChange}
                         value={values[RegisterFormKeys.Username]}
+                        className={styles["registration-input"]}
                     />
-                    <label htmlFor="password">Парола:</label>
+                    <label htmlFor="password"></label>
                     <input 
+                        placeholder="Парола"
                         required
                         type="password" 
                         id="password"
                         name="password"
                         onChange={onChange}
                         value={values[RegisterFormKeys.Password]} 
+                        className={styles["registration-input"]}
                     />
-                    <label htmlFor="confirmedPassword">Повторете паролата:</label>
+                    <label htmlFor="confirmedPassword"></label>
                     <input 
+                        placeholder="Повторете паролата"
                         required
                         type="password" 
                         id="confirmedPassword"
                         name="confirmedPassword"
                         onChange={onChange}
                         value={values[RegisterFormKeys.ConfirmedPassword]} 
+                        className={styles["registration-input"]}
                     />
 
-                    <Button variant="primary" type="submit" value="Регистрирай">Регистрирай</Button>
+                    <Button className={styles["signup-button"]} variant="primary" type="submit" value="Регистрирай">Регистрирай</Button>
+
+                    <div>
+                        <p>Вече имате профил? <Link to='/login' >Влезте в профила си</Link> </p>
+                    </div>
                 </form>
             </Card>
             </div>

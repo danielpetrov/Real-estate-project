@@ -5,8 +5,9 @@ import useForm from "../../hooks/useForm"
 import AuthContext from "../../contexts/authContext"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+//import Form from 'react-bootstrap/Form';
 import styles from './Login.module.css'
+import { Link } from "react-router-dom";
 
 const LoginFormKeys = {
     Email: 'email',
@@ -25,8 +26,10 @@ export default function Login() {
         <>
             <div className={styles["login-div"]}>
                 <Card className={styles["login-form-card"]}>
-                    <Form className={styles["login-form"]} onSubmit={onSubmit}>
-                        <label htmlFor="email">Имейл: </label><br />
+                    <h1 className={styles["login-title"]}>Вход</h1>
+                    <form className={styles["login-form"]} onSubmit={onSubmit}>
+                        
+                        <label htmlFor="email">Имейл: </label>
                         <input
                             required
                             type="email"
@@ -35,9 +38,10 @@ export default function Login() {
                             onChange={onChange}
                             value={values[LoginFormKeys.Email]}
                         />
-                        <br />
-                        <label htmlFor="password">Парола: </label><br />
+                       
+                        <label htmlFor="password">Парола: </label>
                         <input
+                            className={styles["password-input"]}
                             required
                             type="password"
                             id="password"
@@ -46,8 +50,12 @@ export default function Login() {
                             onChange={onChange}
                         />
 
-                        <Button variant="primary" type="submit" value="Вход">Вход</Button>
-                    </Form>
+                        <Button className={styles["login-button"]} variant="primary" type="submit" value="Вход">Вход</Button>
+
+                        <div>
+                          <p>Нямате профил? <Link to='/signup' >Регистрирайте се</Link> </p>
+                        </div>
+                    </form>
                 </Card>
             </div>
         </>

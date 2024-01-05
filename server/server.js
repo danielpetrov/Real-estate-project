@@ -1119,7 +1119,8 @@
                 area: 120,
                 yearOfBuilding: 2005,
                 description: "Тристаен апартамент със страхотна локация, южно изложение и паркомясто. Продава се с обзавеждането, което се вижда на снимките, като има въжможност и да се махне.",
-                _id: "3564027f-adcd-4425-b2c0-1253d2386c0c"
+                _id: "3564027f-adcd-4425-b2c0-1253d2386c0c",
+                img: "https://cdnp.ues.bg/estates/watermark/467/15467/158515.jpg"
             },
             "c64db398-91cd-487c-b900-86058c0422f8": {
                 _ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
@@ -1133,7 +1134,8 @@
                 area: 70,
                 yearOfBuilding: 2008,
                 description: "Двустаен апартамент със страхотна локация, южно изложение и паркомясто. Продава се с обзавеждането, което се вижда на снимките, като има въжможност и да се махне.",
-                _id: "c64db398-91cd-487c-b900-86058c0422f8"
+                _id: "c64db398-91cd-487c-b900-86058c0422f8",
+                img: "https://media.istockphoto.com/id/1165384568/photo/europe-modern-complex-of-residential-buildings.jpg?s=612x612&w=0&k=20&c=iW4NBiMPKEuvaA7h8wIsPHikhS64eR-5EVPfjQ9GPOA="
             },
             "daf55cd4-9aa1-4b7a-82a9-fbdb74aaa84b": {
                 _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
@@ -1147,7 +1149,23 @@
                 area: 50,
                 yearOfBuilding: 2007,
                 description: "Едностаен апартамент със страхотна локация, южно изложение и паркомясто. Продава се с обзавеждането, което се вижда на снимките, като има въжможност и да се махне.",
-                _id: "daf55cd4-9aa1-4b7a-82a9-fbdb74aaa84b"
+                _id: "daf55cd4-9aa1-4b7a-82a9-fbdb74aaa84b",
+                img: "https://www.shutterstock.com/image-photo/interior-small-apartment-living-room-600nw-2154108011.jpg"
+            },
+            "18bfdb21-333b-42bd-a32c-c114263f2569": {
+                _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
+                propertyType: "Апартамент",
+                location: "София",
+                district: "Манастирски ливади" ,
+                rooms: 2,
+                floor: 4,
+                price: 200000,
+                currency: "EUR",
+                area: 70,
+                yearOfBuilding: 2008,
+                description: "Двустаен апартамент със страхотна локация, южно изложение и паркомясто. Продава се с обзавеждането, което се вижда на снимките, като има въжможност и да се махне.",
+                _id: "18bfdb21-333b-42bd-a32c-c114263f2569",
+                img: "https://5.imimg.com/data5/SELLER/Default/2020/12/LG/PZ/XG/11208754/3d-apartment-building-elevation-service.jpg"
             }
         },
     	recipes: {
