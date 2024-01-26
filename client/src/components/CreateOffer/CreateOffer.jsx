@@ -3,13 +3,13 @@ import { useContext } from "react"
 import AuthContext from "../../contexts/authContext"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
-import locations from '../../locations'
+import cities from '../../locations'
 import { onlyUnique } from "../../utils"
 import styles from "./CreateOffer.module.css"
 
 const CreateOfferFormKeys = {
-    Type: 'type',
-    City: 'city',
+    PropertyType: 'propertyType',
+    Location: 'location',
     District: 'district',
     Rooms: 'rooms',
     Floor: 'floor',
@@ -23,8 +23,8 @@ const CreateOfferFormKeys = {
 export default function CreateOffer() {
     const { addNewOfferHandler } = useContext(AuthContext)
     const { values, onChange, onSubmit } = useForm(addNewOfferHandler, {
-        [CreateOfferFormKeys.Type]: '',
-        [CreateOfferFormKeys.City]: '',
+        [CreateOfferFormKeys.PropertyType]: 'Апартамент',
+        [CreateOfferFormKeys.Location]: '',
         [CreateOfferFormKeys.District]: '',
         [CreateOfferFormKeys.Rooms]: '',
         [CreateOfferFormKeys.Floor]: '',
@@ -42,20 +42,20 @@ export default function CreateOffer() {
 
                 <form className={styles["add-new-offer-form"]} onSubmit={onSubmit} action="">
                     <div>
-                        <label htmlFor="type">Тип на имота:</label>
-                        <select id="type" name="type">
-                            <option value="Apartment">Апартамент</option>
-                            <option value="House">Къща</option>
-                            <option value="plot">Парцел</option>
+                        <label htmlFor="propertyType">Тип на имота:</label>
+                        <select id="propertyType" name="propertyType" required onChange={onChange}>
+                            <option value="Апартамент">Апартамент</option>
+                            <option value="Къща">Къща</option>
+                            <option value="Парцел">Парцел</option>
                         </select>
                     </div>
 
                     <div>
-                        <label htmlFor="city">Град:</label>
-                        <select id="city" name="city" required onChange={onChange}>
+                        <label htmlFor="location">Град:</label>
+                        <select id="location" name="location" required onChange={onChange}>
                             <option value={null} selected hidden>Град</option>
-                            {locations.map((location) => (location.City)).filter(onlyUnique).map(city =>
-                                <option key={city} value={city}>{city}</option>)}
+                            {cities.map((city) => (city.City)).filter(onlyUnique).map(location =>
+                                <option key={location} value={location}>{location}</option>)}
 
                         </select>
                     </div>
@@ -63,9 +63,9 @@ export default function CreateOffer() {
 
                     <div>
                         <label htmlFor="district">Квартал:</label>
-                        <select id="district" name="district" disabled={!values[CreateOfferFormKeys.City]}>
+                        <select id="district" name="district" disabled={!values[CreateOfferFormKeys.Location]} onChange={onChange}>
                             <option value={null} selected hidden>Квартал</option>
-                            {locations.filter(location => location.City === values[CreateOfferFormKeys.City]).map((location) => (location.District)).map(district =>
+                            {cities.filter(city => city.City === values[CreateOfferFormKeys.Location]).map((location) => (location.District)).map(district =>
                                 <option key={district} value={district}>{district}</option>)}
 
                         </select>
@@ -172,7 +172,8 @@ export default function CreateOffer() {
 
 
                     <Button
-                        type="submit" value="Submit">Създай обява</Button>
+                        type="submit" value="Submit">Създай обява
+                    </Button>
                 </form>
             </Card>
 

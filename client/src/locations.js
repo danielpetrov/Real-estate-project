@@ -1,4 +1,4 @@
-const locations = [
+const cities = [
     {
         City: "София",
         District: "Абдовица"
@@ -49,4 +49,4 @@ const locations = [
     }
 ]
 
-export default locations
+export default cities
