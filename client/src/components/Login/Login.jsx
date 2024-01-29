@@ -5,7 +5,6 @@ import useForm from "../../hooks/useForm"
 import AuthContext from "../../contexts/authContext"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-//import Form from 'react-bootstrap/Form';
 import styles from './Login.module.css'
 import { Link } from "react-router-dom";
 
@@ -16,7 +15,6 @@ const LoginFormKeys = {
 
 export default function Login() {
     const { loginSubmitHandler } = useContext(AuthContext)
-
     const { values, onChange, onSubmit } = useForm(loginSubmitHandler, {
         [LoginFormKeys.Email]: '',
         [LoginFormKeys.Password]: ''
@@ -28,17 +26,15 @@ export default function Login() {
                 <Card className={styles["login-form-card"]}>
                     <h1 className={styles["login-title"]}>Вход</h1>
                     <form className={styles["login-form"]} onSubmit={onSubmit}>
-                        
-                        <label htmlFor="email">Имейл: </label>
+                        <label htmlFor="email">Имейл или потребителско име: </label>
                         <input
                             required
-                            type="email"
+                            type="text"
                             id="email"
                             name={LoginFormKeys.Email}
                             onChange={onChange}
                             value={values[LoginFormKeys.Email]}
                         />
-                       
                         <label htmlFor="password">Парола: </label>
                         <input
                             className={styles["password-input"]}
@@ -49,9 +45,7 @@ export default function Login() {
                             value={values[LoginFormKeys.Password]}
                             onChange={onChange}
                         />
-
                         <Button className={styles["login-button"]} variant="primary" type="submit" value="Вход">Вход</Button>
-
                         <div>
                           <p>Нямате профил? <Link to='/signup' >Регистрирайте се</Link> </p>
                         </div>
@@ -59,7 +53,5 @@ export default function Login() {
                 </Card>
             </div>
         </>
-
     )
-
 }

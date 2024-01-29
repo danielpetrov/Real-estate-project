@@ -1,31 +1,22 @@
-const baseUrl = "http://localhost:3030"
+const baseUrl = "http://localhost:3000/data"
 
 const buildFiltersQuery = (filters) => {
     if (!filters) {
         return ''
     }
-    let filtersQuery = ''
+    let filtersQuery = '?'
 
     if (filters.city) {
-        filtersQuery += `?where=location="${filters.city}"` 
+        filtersQuery += `location=${filters.city}`
+    }
+    if (filters.district) {
+        filtersQuery += `district=${filters.district}`
     }
 
     return filtersQuery
 }
 const filterProperties = (filters, properties) => {
     return properties.filter(property => {
-        if (filters.city) {
-            if (property.location !== filters.city) {
-                return false
-            }
-        }
-
-        if (filters.district) {
-            if (property.district !== filters.district) {
-                return false
-            }
-        }
-
         if (filters.budgetLowest) {
             if (property.price < filters.budgetLowest) {
                 return false
@@ -41,29 +32,23 @@ const filterProperties = (filters, properties) => {
         return true
     })
 }
-export const getAll = async (filters) => {
-    const response = await fetch(`${baseUrl}/data/properties${buildFiltersQuery(filters)}`)
+export const getProperties = async (filters) => {
+    const response = await fetch(`${baseUrl}/offers${buildFiltersQuery(filters)}`)
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    const propertyData = await response.json()
+    const properties = await response.json()
 
-    const properties = Object.values(propertyData)
-    
     if (filters) {
         return filterProperties(filters, properties)
     }
-    return Object.values(propertyData)
+    return properties
 };
 
-// TODO: better names
-export async function getOne (id) {
-    const response = await fetch(`${baseUrl}/data/properties/${id}`);
+export async function getOneProperty(id) {
+    const response = await fetch(`${baseUrl}/offers/${id}`);
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    const singlePropertyData = await response.json();
-    return singlePropertyData;
-};
+    return await response.json();
+}

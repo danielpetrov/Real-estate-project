@@ -23,7 +23,7 @@ import Profile from './components/Profile'
 import ErrorPopup from './components/ErrorPopup/ErrorPopup'
 import Loader from './components/Loader'
 import LoaderContext from './contexts/loaderContext'
-import { getAll } from "./services/propertyService"
+import { getProperties } from "./services/propertyService"
 
 function App() {
   const [auth, setAuth] = useState({})
@@ -94,7 +94,6 @@ function App() {
     } finally {
       setLoading({ isLoading: false })
     }
-
   }
   const editOfferHandler = async (_id, values) => {
     try {
@@ -117,7 +116,7 @@ function App() {
   const getHomeOfferList = async (filters) => {
     try {
       setLoading({ isLoading: true })
-      getAll(filters)
+      getProperties(filters)
         .then(result => setHomeOfferList(result))
 
     } catch (e) {

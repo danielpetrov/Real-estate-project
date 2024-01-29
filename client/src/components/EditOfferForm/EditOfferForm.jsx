@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react"
+import {useContext, useEffect, useState} from "react"
 import AuthContext from "../../contexts/authContext"
-import { useParams } from "react-router-dom"
-import { getMyOffer } from '../../services/collections'
+import {useParams} from "react-router-dom"
+import {getMyOffer} from '../../services/collections'
 import styles from './EditOfferForm.module.css'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -20,14 +20,24 @@ const EditOfferFormKeys = {
 }
 
 export default function EditOfferForm() {
-    const { isAuthenticated, editOfferHandler, token } = useContext(AuthContext)
+    const {isAuthenticated, editOfferHandler, token} = useContext(AuthContext)
     const [values, setValues] = useState()
-    const { _id } = useParams()
+    const {_id} = useParams()
 
     useEffect(() => {
         if (isAuthenticated) {
             getMyOffer(_id, token)
-                .then(result => setValues(result))
+                .then(result => setValues({
+                    area: result.area,
+                    currency: result.currency,
+                    description: result.description,
+                    district: result.district,
+                    floor: result.floor,
+                    location: result.location,
+                    price: result.price,
+                    propertyType: result.propertyType,
+                    rooms: result.rooms,
+                }))
         }
     }, [isAuthenticated, setValues, token])
 
@@ -40,6 +50,7 @@ export default function EditOfferForm() {
 
     const onSubmit = (e) => {
         e.preventDefault()
+        console.log('values', values)
         editOfferHandler(_id, values)
     }
 
@@ -50,7 +61,7 @@ export default function EditOfferForm() {
         <>
             <div className={styles["create-new-offer-wrapper"]}>
                 <Card className={styles["create-new-offer-card"]}>
-                    <h1 className={styles["edit-offer-form-title"]} >Редактирай оферта</h1>
+                    <h1 className={styles["edit-offer-form-title"]}>Редактирай оферта</h1>
                     <form className={styles["edit-new-offer-form"]} onSubmit={onSubmit} action="">
                         <div className={styles["row"]}>
                             <div className={styles["left-half"]}>
@@ -60,7 +71,7 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="text"
                                         id="type-edit-form"
-                                        name="type-edit-form"
+                                        name="propertyType"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Type]}
                                     />
@@ -72,7 +83,7 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="text"
                                         id="location-edit-form"
-                                        name="location-edit-form"
+                                        name="location"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Location]}
                                     />
@@ -85,19 +96,19 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="text"
                                         id="district-edit-form"
-                                        name="district-edit-form"
+                                        name="district"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.District]}
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="rooms-edit-form" >Стаи:</label>
+                                    <label htmlFor="rooms-edit-form">Стаи:</label>
                                     <input
                                         className={styles["edit-offer-input"]}
                                         type="number"
                                         id="rooms-edit-form"
-                                        name="rooms-edit-form"
+                                        name="rooms"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Rooms]}
                                     />
@@ -110,7 +121,7 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="number"
                                         id="floor-edit-form"
-                                        name="floor=edit-form"
+                                        name="floor"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Floor]}
                                     />
@@ -124,13 +135,11 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="number"
                                         id="price-edit-form"
-                                        name="price-edit-form"
+                                        name="price"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Price]}
                                     />
                                 </div>
-
-
 
 
                                 <div>
@@ -139,7 +148,7 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="text"
                                         id="currency-edit-form"
-                                        name="currency-edit-form"
+                                        name="currency"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Currency]}
                                     />
@@ -152,7 +161,7 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="number"
                                         id="area-edit-form"
-                                        name="area-edit-form"
+                                        name="area"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Area]}
                                     />
@@ -165,19 +174,19 @@ export default function EditOfferForm() {
                                         className={styles["edit-offer-input"]}
                                         type="number"
                                         id="yearOfBuilding-edit-form"
-                                        name="yearOfBuilding-edit-form"
+                                        name="yearOfBuilding"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.YearOfBuilding]}
                                     />
                                 </div>
 
 
-                                <div>  <label htmlFor="description-edit-form">Описание:</label>
+                                <div><label htmlFor="description-edit-form">Описание:</label>
                                     <textarea
                                         className={styles["edit-offer-input-textarea"]}
                                         type="text"
                                         id="description-edit-form"
-                                        name="description-edit-form"
+                                        name="description"
                                         onChange={onChange}
                                         value={values[EditOfferFormKeys.Description]}
                                     />
@@ -185,11 +194,12 @@ export default function EditOfferForm() {
 
                             </div>
                         </div>
-{/* 
+                        {/*
                         <input
                             type="submit" value="Submit"
                         /> */}
-                        <Button className={styles["edit-offer-button"]} variant="primary" type="submit" value="Редактирай">Редактирай</Button>
+                        <Button className={styles["edit-offer-button"]} variant="primary" type="submit"
+                                value="Редактирай">Редактирай</Button>
                     </form>
                 </Card>
 

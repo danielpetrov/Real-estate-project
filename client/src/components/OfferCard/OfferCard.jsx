@@ -8,6 +8,7 @@ import AuthContext from "../../contexts/authContext"
 export default function OfferCard({ property, editEnabled, setConfirmPopupState }) {
     const { token } = useContext(AuthContext)
     const {
+        visited,
         location,
         propertyType,
         district,
@@ -41,6 +42,7 @@ export default function OfferCard({ property, editEnabled, setConfirmPopupState 
                         <p className={styles["short-offer-description"]}>{description}</p>
                     </li>
                     <Link className={styles["link-to-offer"]} to={`${editEnabled ? '/secure' : ''}/properties/${_id}`} >Виж повече</Link>
+                    <li className={styles["right-positioned-specs"]}>{`Visited: ${visited}`}</li>
                     {editEnabled &&
                         <Button className={styles["btn-edit-offer"]}>
                             <Link
