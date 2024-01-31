@@ -1,104 +1,82 @@
 //import { getProfileData } from "./authService";
-const baseUrl = "http://localhost:3030"
+import {getAuthorizationToken} from "./utils.js";
 
-export const getMyOffers = async (token, ownerId, email) => {
-    const response = await fetch(`${baseUrl}/data/properties`, {
+const baseUrl = "http://localhost:3000/protected/myOffers"
+
+const getHeaders = (token) => {
+    return {
+        "Content-type": "application/json",
+        "X-Authorization": getAuthorizationToken(token),
+    }
+}
+export const getMyOffers = async (token) => {
+    const response = await fetch(`${baseUrl}`, {
         method: "GET",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
-        }
+        headers: getHeaders(token)
     })
 
     if (response.status === 404) {
         return []
     }
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    
-    const propertyData = await response.json()
 
-    return propertyData.filter(item => item._ownerId === ownerId || email === 'admin@abv.bg')
+    return await response.json()
 };
 
-
 export const addNewOffer = async (propertyDetails, token) => {
-    const response = await fetch(`${baseUrl}/data/properties`, {
+    const response = await fetch(`${baseUrl}`, {
         method: "POST",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
-        },
+        headers: getHeaders(token),
         body: JSON.stringify(propertyDetails)
     })
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    const propertyData = await response.json()
 
-    return propertyData
+    return await response.json()
 }
 
 export async function getMyOffer(id, token) {
-    const response = await fetch(`${baseUrl}/data/properties/${id}`, {
+    const response = await fetch(`${baseUrl}/${id}`, {
         method: "GET",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
-        }
+        headers: getHeaders(token)
     });
 
     if (response.status === 404) {
         return {}
     }
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    const data = await response.json();
 
-    return data;
-};
+    return await response.json();
+}
 
 export async function editMyOffer(id, token, editedPropertyData) {
-    console.log('called', JSON.stringify(editedPropertyData))
-    const response = await fetch(`${baseUrl}/data/properties/${id}`, {
+    const response = await fetch(`${baseUrl}/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
-        },
+        headers: getHeaders(token),
         body: JSON.stringify(editedPropertyData)
     });
-    
 
     if (response.status === 404) {
         return {}
     }
-    
-    const editedPropertyDetails = await response.json();
-    console.log('response', editedPropertyDetails)
-    return editedPropertyDetails;
-};
+
+    return await response.json();
+}
 
 export const deleteOffer = async (_id, token) => {
-    const response = await fetch(`${baseUrl}/data/properties/${_id}`, {
+    const response = await fetch(`${baseUrl}/${_id}`, {
         method: "DELETE",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
-        },
-        body: JSON.stringify(_id)
+        headers: getHeaders(token),
     })
 
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    const deletedData = await response.json()
 
-    return deletedData
+    return await response.json()
 }

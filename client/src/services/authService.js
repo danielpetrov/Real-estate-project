@@ -1,7 +1,9 @@
-const baseUrl = "http://localhost:3030"
+import {getAuthorizationToken} from "./utils.js";
+
+const baseUrl = "http://localhost:3000/user"
 
 export async function login(loginData) {
-    const response = await fetch(`${baseUrl}/users/login`, {
+    const response = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -10,17 +12,14 @@ export async function login(loginData) {
     })
 
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
 
-    const data = await response.json()   
-
-    return data
+    return await response.json()
 }
 
-export async function signup(signupData, token) {
-    const response = await fetch(`${baseUrl}/users/register`, {
+export async function signup(signupData) {
+    const response = await fetch(`${baseUrl}/register`, {
         method: "POST",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -29,24 +28,17 @@ export async function signup(signupData, token) {
     })
 
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
 
-    const signedupData = await response.json()
-    console.log(signedupData)
-    return signedupData
+    return await response.json()
 }
-
-
-
 export async function logout(token) {
-    console.log(token)
-    const response = await fetch(`${baseUrl}/users/logout`, {
+    const response = await fetch(`${baseUrl}/logout`, {
         method: "GET",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
+            "X-Authorization": getAuthorizationToken(token),
         }
     })
 
@@ -54,26 +46,21 @@ export async function logout(token) {
         return {}
     }
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-
 }
 
 export async function getProfileData(token) {
-    const response = await fetch(`${baseUrl}/users/me`, {
+    const response = await fetch(`${baseUrl}/me`, {
         method: "GET",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            "X-Authorization": `${token}`,
+            "X-Authorization": getAuthorizationToken(token),
         }
     })
     if (!response.ok) {
-        const error = await response.json()
-        throw error
+        throw await response.json()
     }
-    console.log(response)
-    const profileData = await response.json()
-    console.log(profileData)
-    return profileData
+
+    return await response.json()
 }
