@@ -54,27 +54,6 @@ function App() {
     }
   }
 
-  const registerSubmitHandler = async (values) => {
-    if (values.confirmedPassword === values.password) {
-      try {
-        setLoading({ isLoading: true })
-        const token = auth.accessToken
-        const result = await signup(values, token)
-        setAuth(result)
-        window.localStorage.setItem('auth', JSON.stringify(result))
-        navigate(Path.Home)
-      } catch (e) {
-        setError({ hasError: true, message: e.message })
-      } finally {
-        setLoading({ isLoading: false })
-
-      }
-    } else {
-      setError({ hasError: true, message: "Паролите не съвпадат, моля опитайте отново." })
-    }
-
-  }
-
   const logoutHandler = async () => {
     const token = auth.accessToken
     logout(token)
@@ -127,7 +106,6 @@ function App() {
   }
   const authContextValues = {
     loginSubmitHandler,
-    registerSubmitHandler,
     logoutHandler,
     addNewOfferHandler,
     editOfferHandler,
@@ -144,7 +122,8 @@ function App() {
   }
 
   const loadingContextValues = {
-    loading
+    loading,
+    setLoading
   }
 
   return (
