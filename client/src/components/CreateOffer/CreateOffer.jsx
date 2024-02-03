@@ -6,6 +6,11 @@ import Card from "react-bootstrap/Card"
 import cities from '../../locations'
 import { onlyUnique } from "../../utils"
 import styles from "./CreateOffer.module.css"
+import LoaderContext from "../../contexts/loaderContext"
+import { addNewOffer } from "../../services/collections"
+import { useNavigate } from "react-router-dom"
+import Path from "../../paths"
+import ErrorContext from "../../contexts/errorContext"
 
 const CreateOfferFormKeys = {
     PropertyType: 'propertyType',
@@ -21,7 +26,22 @@ const CreateOfferFormKeys = {
 }
 
 export default function CreateOffer() {
-    const { addNewOfferHandler } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
+    const { setLoading } = useContext(LoaderContext)
+    const { setError } = useContext(ErrorContext)
+    const navigate = useNavigate()
+    const addNewOfferHandler = async (values) => {
+        try {
+            setLoading({ isLoading: true })
+            await addNewOffer(values, token)
+                .then(navigate(Path.MyOffers))
+        } catch (e) {
+            setError({ hasError: true, message: e.message })
+        } finally {
+            setLoading({ isLoading: false })
+        }
+    }
+
     const { values, onChange, onSubmit } = useForm(addNewOfferHandler, {
         [CreateOfferFormKeys.PropertyType]: 'Апартамент',
         [CreateOfferFormKeys.Location]: '',
@@ -39,7 +59,6 @@ export default function CreateOffer() {
         <div className={styles["create-offer-page"]}>
             <h1>Създай нова оферта</h1>
             <Card className={styles['add-new-offer-wrapper']}>
-
                 <form className={styles["add-new-offer-form"]} onSubmit={onSubmit} action="">
                     <div>
                         <label htmlFor="propertyType">Тип на имота:</label>
@@ -49,7 +68,6 @@ export default function CreateOffer() {
                             <option value="Парцел">Парцел</option>
                         </select>
                     </div>
-
                     <div>
                         <label htmlFor="location">Град:</label>
                         <select id="location" name="location" required onChange={onChange}>
@@ -59,8 +77,6 @@ export default function CreateOffer() {
 
                         </select>
                     </div>
-
-
                     <div>
                         <label htmlFor="district">Квартал:</label>
                         <select id="district" name="district" disabled={!values[CreateOfferFormKeys.Location]} onChange={onChange}>
@@ -70,8 +86,6 @@ export default function CreateOffer() {
 
                         </select>
                     </div>
-
-
                     <div>
                         <label htmlFor="rooms" >Стаи:</label>
                         <input
@@ -84,8 +98,6 @@ export default function CreateOffer() {
                             min={1}
                         />
                     </div>
-
-
                     <div>
                         <label htmlFor="floor">Етаж:</label>
                         <input
@@ -99,8 +111,6 @@ export default function CreateOffer() {
                             max={100}
                         />
                     </div>
-
-
                     <div>
                         <label htmlFor="price">Цена:</label>
                         <input
@@ -113,8 +123,6 @@ export default function CreateOffer() {
                             min={0}
                         />
                     </div>
-
-
                     <div>
                         <label htmlFor="currency">Валута:</label>
                         <input
@@ -126,8 +134,6 @@ export default function CreateOffer() {
                             value={values[CreateOfferFormKeys.Currency]}
                         />
                     </div>
-
-
                     <div>
                         <label htmlFor="area">Площ:</label>
                         <input
@@ -140,8 +146,6 @@ export default function CreateOffer() {
                             min={1}
                         />
                     </div>
-
-
                     <div>
                         <label htmlFor="yearOfBuilding">Година на строителство:</label>
                         <input
@@ -155,8 +159,6 @@ export default function CreateOffer() {
                             max={2030}
                         />
                     </div>
-
-
                     <div>  <label htmlFor="description">Описание:</label>
                         <textarea
                             required
@@ -169,27 +171,11 @@ export default function CreateOffer() {
                             maxLength={1200}
                         />
                     </div>
-
-
                     <Button
                         type="submit" value="Submit">Създай обява
                     </Button>
                 </form>
             </Card>
-
-
-            {/* "property
-                Type": "Апартамент",
-        "location": "София",
-        "district": "Манастирски ливади" ,
-        "rooms": 2,
-        "floor": 4,
-        "price": 200000,
-        "currency": "EUR",
-        "area": 70,
-        "yearOfBuilding": 2008,
-        "description": "Двустаен апартамент със страхотна локация, южно изложение и паркомясто. Продава се с обзавеждането, което се вижда на снимките, като има въжможност и да се махне.",
-        "id": "c64db398-91cd-487c-b900-86058c0422f8" */}
         </div>
 
     )

@@ -1,10 +1,15 @@
 import {useContext, useEffect, useState} from "react"
 import AuthContext from "../../contexts/authContext"
-import {useParams} from "react-router-dom"
-import {getMyOffer} from '../../services/collections'
+import {useNavigate, useParams} from "react-router-dom"
+import {editMyOffer, getMyOffer} from '../../services/collections'
 import styles from './EditOfferForm.module.css'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import LoaderContext from "../../contexts/loaderContext"
+import Path from "../../paths"
+import ErrorContext from "../../contexts/errorContext"
+
+
 
 const EditOfferFormKeys = {
     Type: 'type',
@@ -20,9 +25,25 @@ const EditOfferFormKeys = {
 }
 
 export default function EditOfferForm() {
-    const {isAuthenticated, editOfferHandler, token} = useContext(AuthContext)
+    const {isAuthenticated, token} = useContext(AuthContext)
     const [values, setValues] = useState()
     const {_id} = useParams()
+    const { setLoading } = useContext(LoaderContext)
+    // TODO: implement local error handling
+    const { setError } = useContext(ErrorContext)
+    const navigate = useNavigate()
+
+    const editOfferHandler = async (_id, values) => {
+        try {
+          setLoading({ isLoading: true })
+          await editMyOffer(_id, token, values)
+            .then(navigate(Path.MyOffers))
+        } catch (e) {
+          setError({ hasError: true, message: e.message })
+        } finally {
+          setLoading({ isLoading: false })
+        }
+      }
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -50,7 +71,6 @@ export default function EditOfferForm() {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('values', values)
         editOfferHandler(_id, values)
     }
 
