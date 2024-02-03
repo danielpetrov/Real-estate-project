@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import AuthContext from './contexts/authContext'
 import ErrorContext from './contexts/errorContext'
-import { getProfileData, login, logout, signup } from './services/authService'
+import { login } from './services/authService'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
@@ -16,20 +16,17 @@ import Path from './paths'
 import Logout from './components/Logout'
 import MyOffers from './components/MyOffers/MyOffers'
 import CreateOffer from './components/CreateOffer/CreateOffer'
-import { addNewOffer, editMyOffer } from './services/collections'
 import MyOfferPage from './components/MyOfferPage'
 import EditOfferForm from './components/EditOfferForm/EditOfferForm'
 import Profile from './components/Profile'
 import ErrorPopup from './components/ErrorPopup/ErrorPopup'
 import Loader from './components/Loader'
 import LoaderContext from './contexts/loaderContext'
-import { getProperties } from "./services/propertyService"
 
 function App() {
   const [auth, setAuth] = useState({})
   const [error, setError] = useState({ hasError: false })
   const [loading, setLoading] = useState({ isLoading: false })
-  const [homeOfferList, setHomeOfferList] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -54,66 +51,14 @@ function App() {
     }
   }
 
-  const logoutHandler = async () => {
-    const token = auth.accessToken
-    logout(token)
-      .then(setAuth({}))
-      .then(localStorage.removeItem('auth')) // call this if 403 on any request
-      .then(navigate(Path.Home))
-  }
 
-  const addNewOfferHandler = async (values) => {
-    try {
-      setLoading({ isLoading: true })
-      const token = auth.accessToken
-      const result = await addNewOffer(values, token)
-        .then(navigate(Path.MyOffers))
-    } catch (e) {
-      setError({ hasError: true, message: e.message })
-    } finally {
-      setLoading({ isLoading: false })
-    }
-  }
-  const editOfferHandler = async (_id, values) => {
-    try {
-      setLoading({ isLoading: true })
-      const token = auth.accessToken
-      const result = await editMyOffer(_id, token, values)
-        .then(navigate(Path.MyOffers))
-    } catch (e) {
-      setError({ hasError: true, message: e.message })
-    } finally {
-      setLoading({ isLoading: false })
-    }
-  }
-
-  const getProfileDataHandler = async () => {
-    const token = auth.accessToken
-    const result = await getProfileData(token)
-  }
-
-  const getHomeOfferList = async (filters) => {
-    try {
-      setLoading({ isLoading: true })
-      getProperties(filters)
-        .then(result => setHomeOfferList(result))
-
-    } catch (e) {
-      setError({ hasError: true, message: e.message })
-    } finally {
-      setLoading({ isLoading: false })
-    }
-  }
   const authContextValues = {
     loginSubmitHandler,
-    logoutHandler,
-    addNewOfferHandler,
-    editOfferHandler,
-    getProfileDataHandler,
     email: auth.email,
     isAuthenticated: !!auth.accessToken,
     token: auth.accessToken,
     ownerId: auth._id,
+    setAuth
   }
 
   const errorContextValues = {
@@ -136,7 +81,7 @@ function App() {
             <Loader />
 
             <Routes>
-              <Route path="/" element={<HomePage properties={homeOfferList} getHomeOfferList={getHomeOfferList} />}></Route>
+              <Route path="/" element={<HomePage />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/properties/:offerId" element={<OfferPage />}></Route>

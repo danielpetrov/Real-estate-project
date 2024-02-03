@@ -6,6 +6,11 @@ import Card from "react-bootstrap/Card"
 import cities from '../../locations'
 import { onlyUnique } from "../../utils"
 import styles from "./CreateOffer.module.css"
+import LoaderContext from "../../contexts/loaderContext"
+import { addNewOffer } from "../../services/collections"
+import { useNavigate } from "react-router-dom"
+import Path from "../../paths"
+import ErrorContext from "../../contexts/errorContext"
 
 const CreateOfferFormKeys = {
     PropertyType: 'propertyType',
@@ -21,7 +26,22 @@ const CreateOfferFormKeys = {
 }
 
 export default function CreateOffer() {
-    const { addNewOfferHandler } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
+    const { setLoading } = useContext(LoaderContext)
+    const { setError } = useContext(ErrorContext)
+    const navigate = useNavigate()
+    const addNewOfferHandler = async (values) => {
+        try {
+            setLoading({ isLoading: true })
+            await addNewOffer(values, token)
+                .then(navigate(Path.MyOffers))
+        } catch (e) {
+            setError({ hasError: true, message: e.message })
+        } finally {
+            setLoading({ isLoading: false })
+        }
+    }
+
     const { values, onChange, onSubmit } = useForm(addNewOfferHandler, {
         [CreateOfferFormKeys.PropertyType]: 'Апартамент',
         [CreateOfferFormKeys.Location]: '',

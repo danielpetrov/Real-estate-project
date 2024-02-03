@@ -1,10 +1,14 @@
 import { useContext, useState, useEffect } from "react"
 import AuthContext from "../contexts/authContext"
+import { getProfileData } from "../services/authService"
 
 export default function Profile() {
-    const {isAuthenticated, getProfileDataHandler, token} = useContext(AuthContext)
+    const { isAuthenticated, token } = useContext(AuthContext)
     const [profileData, setProfileData] = useState()
     console.log(profileData)
+    const getProfileDataHandler = async () => {
+        await getProfileData(token)
+    }
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -13,7 +17,7 @@ export default function Profile() {
         }
     }, [isAuthenticated, token])
 
-    return(
+    return (
         <div className="profile-wrapper">
 
             <h1>Моят профил</h1>

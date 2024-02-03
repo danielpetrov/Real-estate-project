@@ -1,11 +1,10 @@
-import {useContext} from "react"
+import {useContext, useState} from "react"
 import useForm from "../../hooks/useForm"
 import Button from "react-bootstrap/esm/Button"
 import Card from "react-bootstrap/Card"
 import styles from './SignUp.module.css'
 import {Link} from "react-router-dom"
 import {signup} from "../../services/authService.js";
-import {useState} from "@types/react";
 import LoaderContext from "../../contexts/loaderContext.js";
 
 const RegisterFormKeys = {
@@ -25,8 +24,7 @@ export default function SignUp() {
             try {
                 setLoading({isLoading: true})
                 await signup(values)
-
-                // TODO: call login with existing form values after successful signup
+                await loginSubmitHandler(values)
             } catch (e) {
                 setError({hasError: true, message: e.message})
             } finally {
